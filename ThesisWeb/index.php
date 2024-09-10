@@ -21,20 +21,40 @@
 
         body {
             box-sizing: border-box;
+            display: flex;
+            flex-direction: row;
         }
 
-        .main {
+        main {
+            height: 100vh;
             width: 80%;
+            background-color: #27963c;
         }
 
         .sidenav-section {
             width: 20%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-logo {
+            font-size: var(--font-size-main);
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            padding: 5%;
+        }
+
+        .nav-logo-img {
+            width: 200px;
         }
 
         .nav-icons-div{
             display: flex;
             flex-direction: column;
-            row-gap: 20px;
+            row-gap: 25px;
+            padding: 5% 5%;
         }
 
         .nav-icons {
@@ -42,26 +62,42 @@
             flex-direction: row;
             align-items: center;
             font-size: var(--font-size-body);
+            padding: 2% 5%;
+            transition: all 0.15s;
+        }
+
+        .nav-icons:hover {
+            border-radius: 2px;
+            background-color: gray;
+        }
+
+        .nav-icons:hover .nav-links {
+            color: white;
         }
 
         .nav-icons-img {
-            width: 35px;
-            height: 35px;
+            width: 30px;
+            height: 30px;
+            padding-right: 5%;
         }
 
         .nav-links {
             text-decoration: none;
+            color: black;
+            transition: color 0.15s;
         }
+
 
     </style>
 </head>
 
 <body>
-    <main class="main-section"></main>
     <nav class="sidenav-section">
         <div class="nav-logo">
-            ReVendIt
+            <img class="nav-logo-img" src="assets/nav-main-logo.png" alt="">
         </div>
+
+        <hr>
 
         <div class="nav-icons-div">
             <div class="nav-icons">
@@ -84,9 +120,8 @@
                 <a href="" class="nav-links announcements">Announcements</a>
             </div>
         </div>
-
-        <div><h1>PULL THIS SHIT</h1></div>
-        <p>adsasdadsaawaawd</p>
     </nav>
+
+    <main class="main-section"></main>
 </body>
 </html>
