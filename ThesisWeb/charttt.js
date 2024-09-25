@@ -10,22 +10,28 @@ new Chart("myBarChart", {
     datasets: [
       {
         label: "Plastic",
-        backgroundColor: "red",
+        backgroundColor: "#1D7031",
         data: bar_plasticValues
       },
       {
         label: "Glass",
-        backgroundColor: "green",
+        backgroundColor: "#3ABF5D",
         data: bar_glassValues
       },
       {
         label: "Aluminum",
-        backgroundColor: "blue",
+        backgroundColor: "#A8D6A0",
         data: bar_aluminumValues
       }
     ]
   },
   options: {
+    title: {
+      display: true,
+      text: "Total Materials for the Past 7 Days",
+
+    },
+
     scales: {
       x: {
         stacked: true // Stacks the bars side by side for each day
@@ -40,9 +46,9 @@ new Chart("myBarChart", {
 var pie_xValues = ["Plastic", "Glass", "Aluminum"];
 var pie_yValues = [55, 49, 44];
 var pie_barColors = [
-  "#b91d47",
-  "#00aba9",
-  "#2b5797",
+  "#1D7031",
+  "#3ABF5D",
+  "#A8D6A0",
   "#e8c3b9",
   "#1e7145"
 ];

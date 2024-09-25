@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="main.css"> 
     <link rel="stylesheet" href="dashboardd.css"> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    
 </head>
 
 <body>
@@ -56,7 +57,7 @@
         <div class="grid-main">
 
             <div class="dashboard-div">
-                <div class="dashboard-icon">
+                <div class="dashboard-icon" style="background-color: #1D7031;">
                     <img src="assets/pet-icon.png" alt="">
                 </div>
                 <div class="dashboard-column-order">
@@ -66,7 +67,7 @@
             </div>
 
             <div class="dashboard-div">
-                <div class="dashboard-icon">
+                <div class="dashboard-icon" style="background-color: #3ABF5D;">
                     <img src="assets/pet-icon.png" alt="">
                 </div>
                 <div class="dashboard-column-order">
@@ -76,7 +77,7 @@
             </div>
 
             <div class="dashboard-div">
-                <div class="dashboard-icon">
+                <div class="dashboard-icon" style="background-color: #A8D6A0;">
                     <img src="assets/pet-icon.png" alt="">
                 </div>
                 <div class="dashboard-column-order">
@@ -87,15 +88,14 @@
 
         </div>
 
+        
         <div class="dashboard-charts">
             <canvas id="myBarChart" style="height: 400px;"></canvas>
             <canvas id="myPieChart" style="height: 400px;"></canvas>
         </div>
 
-
-
     </main>
 
-    <script src="chart.js"></script>
+    <script src="charttt.js"></script>
 </body>
 </html>

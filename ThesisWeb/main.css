@@ -10,12 +10,20 @@
             --font-size-header2: 1.5rem; 
             --font-size-main: 1.1rem; 
             --font-size-body: 1rem; 
+
             --color-green-1: #249339;
-            --color-green-hover: #249338c7;
             --color-green-2: #80cc28;
+            --color-green-hover: #249338c7;
+
             --color-gray-1: rgba(143, 142, 142, 0.724);
             --color-gray-hover: #D9D9D9;
+
             --color-black-1: #1E1E1E;
+
+            --color-blue-1: #2980B9;
+            --color-yellow-1: #F1C40F;
+            --color-violet-1: #8967B3;
+            --color-red-1: #FF6F61;
         }
 
         body {
