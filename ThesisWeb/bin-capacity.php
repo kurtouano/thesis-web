@@ -54,8 +54,8 @@
 
         <div class="grid-main">
 
-            <div class="dashboard-div">
-                <div class="dashboard-icon">
+        <div class="dashboard-div">
+                <div class="dashboard-icon" style="background-color: #1D7031;">
                     <img src="assets/pet-icon.png" alt="">
                 </div>
                 <div class="dashboard-column-order">
@@ -65,22 +65,22 @@
             </div>
 
             <div class="dashboard-div">
-                <div class="dashboard-icon">
-                    <img src="assets/pet-icon.png" alt="">
+                <div class="dashboard-icon" style="background-color: #3ABF5D;">
+                    <img src="assets/glass-icon.png" alt="">
                 </div>
                 <div class="dashboard-column-order">
-                    <p class="material-name">PET Bottles</p>
-                    <p class="total-items-text"> 50% </p>
+                    <p class="material-name">Glass Bottles</p>
+                    <p class="total-items-text"> 30% </p>
                 </div>
             </div>
 
             <div class="dashboard-div">
-                <div class="dashboard-icon">
-                    <img src="assets/pet-icon.png" alt="">
+                <div class="dashboard-icon" style="background-color: #93cb8b;">
+                    <img src="assets/can-icon.png" alt="">
                 </div>
                 <div class="dashboard-column-order">
-                    <p class="material-name">PET Bottles</p>
-                    <p class="total-items-text"> 10% </p>
+                    <p class="material-name">Aluminum Cans</p>
+                    <p class="total-items-text"> 50% </p>
                 </div>
             </div>
 

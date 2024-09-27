@@ -139,12 +139,34 @@
         .total-items-text {
             font-size: var(--font-size-header2);
         }
+        
+        .dashboard-charts-div {
+            position: relative;
+            margin-top: 80px;
+        }
+
+        .chart-controls {
+            position: absolute;
+            color: black;
+            border: none;
+            border-radius: 3px;
+            top: 5px;
+            left: 55%;
+        }
+
+        .chart-controls label {
+            margin-right: 5px;
+        }
+
+        #timePeriod {
+            font-size: 1rem;
+            padding: 0 4px;
+        }
 
         .dashboard-charts {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
-            margin-top: 50px;
         }
 
         #myBarChart {
@@ -158,22 +180,6 @@
             max-width: 300px;
             border-radius: 20px;
         }
-    
-        .chart-controls {
-            margin: 20px 0;
-        }
-        
-        .chart-controls label {
-            color: #fff; /* Adjust color as needed */
-            margin-right: 10px;
-        }
-        
-        .chart-controls select {
-            padding: 5px;
-            border-radius: 5px;
-            border: none;
-        }
-        
 
         
        

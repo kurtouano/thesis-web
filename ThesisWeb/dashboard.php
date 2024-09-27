@@ -68,34 +68,42 @@
 
             <div class="dashboard-div">
                 <div class="dashboard-icon" style="background-color: #3ABF5D;">
-                    <img src="assets/pet-icon.png" alt="">
+                    <img src="assets/glass-icon.png" alt="">
                 </div>
                 <div class="dashboard-column-order">
-                    <p class="material-name">PET Bottles</p>
+                    <p class="material-name">Glass Bottles</p>
                     <p class="total-items-text"> 500 </p>
                 </div>
             </div>
 
             <div class="dashboard-div">
-                <div class="dashboard-icon" style="background-color: #A8D6A0;">
-                    <img src="assets/pet-icon.png" alt="">
+                <div class="dashboard-icon" style="background-color: #93cb8b;">
+                    <img src="assets/can-icon.png" alt="">
                 </div>
                 <div class="dashboard-column-order">
-                    <p class="material-name">PET Bottles</p>
+                    <p class="material-name">Aluminum Cans</p>
                     <p class="total-items-text"> 500 </p>
                 </div>
             </div>
 
         </div>
 
-        
-        <div class="dashboard-charts">
-            <canvas id="myBarChart" style="height: 400px;"></canvas>
-            <canvas id="myPieChart" style="height: 400px;"></canvas>
+        <div class="dashboard-charts-div">
+            <div class="chart-controls">
+                <select id="timePeriod" onchange="changePeriod(this.value)">
+                    <option value="week">Week</option>
+                    <option value="month">Month</option>
+                    <option value="year">Year</option>
+                </select>
+            </div>
+            <div class="dashboard-charts">
+                <canvas id="myBarChart"></canvas>
+                <canvas id="myPieChart"></canvas>
+            </div>
         </div>
 
     </main>
 
-    <script src="charttt.js"></script>
+    <script src="dashboard-chart.js"></script>
 </body>
 </html>
