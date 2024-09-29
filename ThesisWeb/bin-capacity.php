@@ -15,8 +15,9 @@
         }
     }
 
-    mysqli_close($conn);
+    $conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +27,9 @@
     <title>Thesis Website</title>
 
     <link rel="stylesheet" href="css/main.css"> 
-    <link rel="stylesheet" href="css/dashboard.css"> 
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/bin-capacity.css">  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 
 <body>
@@ -64,43 +67,41 @@
 
     <?php require 'require/topnav.php'; ?>
 
-        <div class="grid-main">
+    <div class="grid-main">
 
         <div class="dashboard-div">
-                <div class="dashboard-icon" style="background-color: #1D7031;">
-                    <img src="assets/pet-icon.png" alt="">
-                </div>
-                <div class="dashboard-column-order">
-                    <p class="material-name">PET Bottles</p>
-                    <p class="total-items-text"> <?php echo $petBin?> % </p>
-                </div>
+            <div class="dashboard-icon" style="background-color: #1D7031;">
+                <img src="assets/pet-icon.png" alt="">
             </div>
-
-            <div class="dashboard-div">
-                <div class="dashboard-icon" style="background-color: #3ABF5D;">
-                    <img src="assets/glass-icon.png" alt="">
-                </div>
-                <div class="dashboard-column-order">
-                    <p class="material-name">Glass Bottles</p>
-                    <p class="total-items-text"> <?php echo $glassBin?> % </p>
-                </div>
+            <div class="dashboard-column-order">
+                <p class="material-name">PET Bottles</p>
+                <p class="total-items-text"> <?php echo $petBin?> % </p>
             </div>
-
-            <div class="dashboard-div">
-                <div class="dashboard-icon" style="background-color: #93cb8b;">
-                    <img src="assets/can-icon.png" alt="">
-                </div>
-                <div class="dashboard-column-order">
-                    <p class="material-name">Aluminum Cans</p>
-                    <p class="total-items-text"> <?php echo $aluminumBin?> % </p>
-                </div>
-            </div>
-
         </div>
 
-        .
+        <div class="dashboard-div">
+            <div class="dashboard-icon" style="background-color: #3ABF5D;">
+                <img src="assets/glass-icon.png" alt="">
+            </div>
+            <div class="dashboard-column-order">
+                <p class="material-name">Glass Bottles</p>
+                <p class="total-items-text"> <?php echo $glassBin?> % </p>
+            </div>
+        </div>
+
+        <div class="dashboard-div">
+            <div class="dashboard-icon" style="background-color: #93cb8b;">
+                <img src="assets/can-icon.png" alt="">
+            </div>
+            <div class="dashboard-column-order">
+                <p class="material-name">Aluminum Cans</p>
+                <p class="total-items-text"> <?php echo $aluminumBin?> % </p>
+            </div>
+        </div>
+
+    </div>
 
     </main>
- 
+    
 </body>
 </html>

@@ -31,3 +31,109 @@
             display: flex;
             flex-direction: row;
         }
+
+        .sidenav-section {
+            width: 25%;
+            min-width: 220px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--color-black-1);
+        }
+
+        .nav-logo {
+            font-size: var(--font-size-main);
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            padding: 5%;
+        }
+
+        .nav-logo-img {
+            width: 190px;
+        }
+
+        .nav-icons-div{
+            display: flex;
+            flex-direction: column;
+            row-gap: 15px;
+            padding: 5% 5%;
+        }
+
+        .nav-icons {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            font-size: var(--font-size-body);
+            padding: 3% 5%;
+            border-radius: 15px;
+
+            text-decoration: none;
+            color: white;
+            transition: color 0.15s;
+   
+            transition: all 0.2s;
+
+        }
+        
+        .nav-icons-div .active {
+            background-color: var(--color-green-1);
+        }
+
+        .nav-icons-img {
+            width: 27px;
+            height: 27px;
+            padding-right: 7%;
+        }
+
+        main {
+            padding: 0 5%;
+            height: 100vh;
+            width: 75%;
+        }
+
+        .top-nav {
+            padding: 4% 0;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .top-nav-title {
+            color: var(--color-black-1);
+            font-size: var(--font-size-header2);
+            font-weight: bold;
+        }
+
+       .top-nav-user-div {
+            width: 145px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+       }
+
+        .top-nav-user-name {
+            color: var(--color-black-1);
+            font-size: var(--font-size-main);
+        }
+
+        .top-nav-user-icon {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 50px;
+        }
+
+        .top-nav-user-icon img {
+            width: 25px;
+            height: 25px;
+        }
+
+        .grid-main {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-gap: 5%;
+            position: relative;
+        }

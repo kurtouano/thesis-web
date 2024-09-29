@@ -1,3 +1,34 @@
+<?php
+
+date_default_timezone_set('Asia/Manila');
+require 'require/dbconf.php';
+
+$sql = "SELECT material_type, SUM(material_quantity) AS total_quantity 
+        FROM transaction_records
+        WHERE DATE(timestamp) = CURDATE() 
+        GROUP BY material_type"; 
+
+$result = $conn->query($sql);
+
+$total_plastic = 0;
+$total_glass = 0;
+$total_aluminum = 0;
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        if ($row['material_type'] == 'Plastic') {
+            $total_plastic = $row['total_quantity'];
+        } elseif ($row['material_type'] == 'Glass') {
+            $total_glass = $row['total_quantity'];
+        } elseif ($row['material_type'] == 'Aluminum') {
+            $total_aluminum = $row['total_quantity'];
+        }
+    }
+}
+
+$conn->close();
+
+?>
 
 
 <!DOCTYPE html>
@@ -49,6 +80,7 @@
     <?php require 'require/topnav.php'; ?>
 
         <div class="grid-main">
+            <div class="dashboard-today-text"><?php echo date(" F j, Y") . " (" . date("l") . ")"; ?></div>
 
             <div class="dashboard-div">
                 <div class="dashboard-icon" style="background-color: #1D7031;">
@@ -56,7 +88,7 @@
                 </div>
                 <div class="dashboard-column-order">
                     <p class="material-name">PET Bottles</p>
-                    <p class="total-items-text"> 500 </p>
+                    <p class="total-items-text"> <?php echo $total_plastic ?> </p>
                 </div>
             </div>
 
@@ -66,7 +98,7 @@
                 </div>
                 <div class="dashboard-column-order">
                     <p class="material-name">Glass Bottles</p>
-                    <p class="total-items-text"> 500 </p>
+                    <p class="total-items-text"> <?php echo $total_glass ?> </p>
                 </div>
             </div>
 
@@ -76,13 +108,15 @@
                 </div>
                 <div class="dashboard-column-order">
                     <p class="material-name">Aluminum Cans</p>
-                    <p class="total-items-text"> 500 </p>
+                    <p class="total-items-text"> <?php echo $total_aluminum ?> </p>
                 </div>
             </div>
 
         </div>
 
+
         <div class="dashboard-charts-div">
+            <div class="chart-date-text">Statistics</div>
             <div class="chart-controls">
                 <select id="timePeriod" onchange="changePeriod(this.value)">
                     <option value="week">Week</option>
