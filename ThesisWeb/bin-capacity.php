@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thesis Website</title>
 
-    <link rel="stylesheet" href="main.css"> 
-    <link rel="stylesheet" href="dashboardd.css"> 
+    <link rel="stylesheet" href="css/main.css"> 
+    <link rel="stylesheet" href="css/dashboard.css"> 
 </head>
 
 <body>
@@ -39,18 +39,10 @@
             
         </div>
     </nav>
-
+    
     <main>
 
-        <div class="top-nav">
-            <p class="top-nav-title">Bin Capacity</p>
-            <div class="top-nav-user-div">
-                <p class="top-nav-user-name">Kurt Ouano</p>
-                <button class="top-nav-user-icon">
-                    <img src="assets/create-account-icon.png" alt="">
-                </button>
-            </div>
-        </div>
+    <?php require 'require/topnav.php'; ?>
 
         <div class="grid-main">
 
@@ -87,5 +79,6 @@
         </div>
 
     </main>
+
 </body>
 </html>

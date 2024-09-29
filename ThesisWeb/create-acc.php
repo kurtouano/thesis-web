@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thesis Website</title>
 
-    <link rel="stylesheet" href="main.css"> 
-    <link rel="stylesheet" href="dashboardd.css"> 
-    <link rel="stylesheet" href="create-acc.css"> 
+    <link rel="stylesheet" href="css/main.css"> 
+    <link rel="stylesheet" href="css/dashboard.css"> 
+    <link rel="stylesheet" href="css/create-acc.css"> 
 </head>
 
 <body>
@@ -43,15 +43,7 @@
 
     <main>
 
-        <div class="top-nav">
-            <p class="top-nav-title">Create User Account</p>
-            <div class="top-nav-user-div">
-                <p class="top-nav-user-name">Kurt Ouano</p>
-                <button class="top-nav-user-icon">
-                    <img src="assets/create-account-icon.png" alt="">
-                </button>
-            </div>
-        </div>
+    <?php require 'require/topnav.php'; ?>
 
         <div class="create-acc-form-div">
             <form class="create-acc-form" action="<?php echo htmlspecialchars(string: $_SERVER["PHP_SELF"]); ?>" method="post">
@@ -80,5 +72,6 @@
         </div>
 
     </main>
+
 </body>
 </html>

@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thesis Website</title>
 
-    <link rel="stylesheet" href="main.css"> 
-    <link rel="stylesheet" href="dashboardd.css"> 
+    <link rel="stylesheet" href="css/main.css"> 
+    <link rel="stylesheet" href="css/dashboard.css"> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     
 </head>
@@ -44,15 +46,7 @@
 
     <main>
 
-        <div class="top-nav">
-            <p class="top-nav-title">Dashboard</p>
-            <div class="top-nav-user-div">
-                <p class="top-nav-user-name">Kurt Ouano</p>
-                <button class="top-nav-user-icon">
-                    <img src="assets/create-account-icon.png" alt="">
-                </button>
-            </div>
-        </div>
+    <?php require 'require/topnav.php'; ?>
 
         <div class="grid-main">
 
@@ -104,6 +98,6 @@
 
     </main>
 
-    <script src="dashboard-chart.js"></script>
+    <script src="js/dashboard-chart.js"></script>
 </body>
 </html>

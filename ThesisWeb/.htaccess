@@ -1,0 +1,8 @@
+# Enable URL rewriting
+RewriteEngine On
+
+# Rewrite URLs to be more user-friendly
+RewriteRule ^bin-capacity$ bin-capacity.php [L]
+RewriteRule ^dashboard$ dashboard.php [L]
+RewriteRule ^register$ create-acc.php [L]
+RewriteRule ^login$ login.php [L]
