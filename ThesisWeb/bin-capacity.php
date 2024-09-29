@@ -1,3 +1,23 @@
+<?php
+    require 'require/dbconf.php';
+    
+    $getBinsCapacity = mysqli_query($conn, "SELECT pet_bin, glass_bin, aluminum_bin, date_time FROM bins_capacity ORDER BY date_time DESC LIMIT 1");
+    
+    if ($getBinsCapacity) {
+        $row = mysqli_fetch_assoc($getBinsCapacity);
+        
+        if ($row) {
+            $petBin = $row['pet_bin'];
+            $glassBin = $row['glass_bin'];
+            $aluminumBin = $row['aluminum_bin'];
+        } else {
+            $petBin = $glassBin = $aluminumBin = "No data available";
+        }
+    }
+
+    mysqli_close($conn);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,7 +72,7 @@
                 </div>
                 <div class="dashboard-column-order">
                     <p class="material-name">PET Bottles</p>
-                    <p class="total-items-text"> 60% </p>
+                    <p class="total-items-text"> <?php echo $petBin?> % </p>
                 </div>
             </div>
 
@@ -62,7 +82,7 @@
                 </div>
                 <div class="dashboard-column-order">
                     <p class="material-name">Glass Bottles</p>
-                    <p class="total-items-text"> 30% </p>
+                    <p class="total-items-text"> <?php echo $glassBin?> % </p>
                 </div>
             </div>
 
@@ -72,13 +92,15 @@
                 </div>
                 <div class="dashboard-column-order">
                     <p class="material-name">Aluminum Cans</p>
-                    <p class="total-items-text"> 50% </p>
+                    <p class="total-items-text"> <?php echo $aluminumBin?> % </p>
                 </div>
             </div>
 
         </div>
 
-    </main>
+        .
 
+    </main>
+ 
 </body>
 </html>
