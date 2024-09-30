@@ -3,21 +3,27 @@
 
     $today = date('Y-m-d');
     
-    $getBinsCapacity = mysqli_query($conn, "SELECT pet_bin, glass_bin, aluminum_bin, date_time FROM bins_capacity ORDER BY date_time DESC LIMIT 1");
     $recentTransactions = mysqli_query($conn, "SELECT id, email, rfid_uid, material_type, material_quantity, points_earned, timestamp FROM transaction_records WHERE DATE(timestamp) = '$today' ORDER BY id DESC");
+    $getTotalMaterials = mysqli_query($conn, "SELECT material_type, SUM(material_quantity) AS total_quantity 
+                          FROM transaction_records
+                          WHERE DATE(timestamp) = CURDATE() 
+                          GROUP BY material_type"); 
 
-    if ($getBinsCapacity) {
-        $row = mysqli_fetch_assoc($getBinsCapacity);
-        
-        if ($row) {
-            $petBin = $row['pet_bin'];
-            $glassBin = $row['glass_bin'];
-            $aluminumBin = $row['aluminum_bin'];
-        } else {
-            $petBin = $glassBin = $aluminumBin = "No data available";
+    $total_plastic = 0;
+    $total_glass = 0;
+    $total_aluminum = 0;
+
+    if ($getTotalMaterials->num_rows > 0) {
+        while ($row = $getTotalMaterials->fetch_assoc()) {
+            if ($row['material_type'] == 'Plastic') {
+                $total_plastic = $row['total_quantity'];
+            } elseif ($row['material_type'] == 'Glass') {
+                $total_glass = $row['total_quantity'];
+            } elseif ($row['material_type'] == 'Aluminum') {
+                $total_aluminum = $row['total_quantity'];
+            }
         }
     }
-
     $conn->close();
 ?>
 
@@ -87,7 +93,7 @@
             </div>
             <div class="dashboard-column-order">
                 <p class="material-name">PET Bottles</p>
-                <p class="total-items-text"> <?php echo $petBin?> % </p>
+                <p class="total-items-text"> <?php echo $total_plastic ?> </p>
             </div>
         </div>
 
@@ -97,7 +103,7 @@
             </div>
             <div class="dashboard-column-order">
                 <p class="material-name">Glass Bottles</p>
-                <p class="total-items-text"> <?php echo $glassBin?> % </p>
+                <p class="total-items-text"> <?php echo $total_glass ?> </p>
             </div>
         </div>
 
@@ -107,7 +113,7 @@
             </div>
             <div class="dashboard-column-order">
                 <p class="material-name">Aluminum Cans</p>
-                <p class="total-items-text"> <?php echo $aluminumBin?> % </p>
+                <p class="total-items-text"> <?php echo $total_aluminum ?> </p>
             </div>
         </div>
     </div>

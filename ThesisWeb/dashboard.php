@@ -1,30 +1,22 @@
 <?php
 
-date_default_timezone_set('Asia/Manila');
 require 'require/dbconf.php';
+date_default_timezone_set('Asia/Manila');
 
-$sql = "SELECT material_type, SUM(material_quantity) AS total_quantity 
-        FROM transaction_records
-        WHERE DATE(timestamp) = CURDATE() 
-        GROUP BY material_type"; 
+$getBinsCapacity = mysqli_query($conn, "SELECT pet_bin, glass_bin, aluminum_bin, date_time FROM bins_capacity ORDER BY date_time DESC LIMIT 1");
 
-$result = $conn->query($sql);
-
-$total_plastic = 0;
-$total_glass = 0;
-$total_aluminum = 0;
-
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        if ($row['material_type'] == 'Plastic') {
-            $total_plastic = $row['total_quantity'];
-        } elseif ($row['material_type'] == 'Glass') {
-            $total_glass = $row['total_quantity'];
-        } elseif ($row['material_type'] == 'Aluminum') {
-            $total_aluminum = $row['total_quantity'];
-        }
+if ($getBinsCapacity) {
+    $row = mysqli_fetch_assoc($getBinsCapacity);
+    
+    if ($row) {
+        $petBin = $row['pet_bin'];
+        $glassBin = $row['glass_bin'];
+        $aluminumBin = $row['aluminum_bin'];
+    } else {
+        $petBin = $glassBin = $aluminumBin = "No data available";
     }
 }
+
 
 $conn->close();
 
@@ -89,14 +81,14 @@ $conn->close();
 
         <div class="grid-main">
             <div class="dashboard-today-text"><?php echo date(" F j, Y") . " (" . date("l") . ")"; ?></div>
-
+            
             <div class="dashboard-div">
                 <div class="dashboard-icon" style="background-color: #1D7031;">
                     <img src="assets/pet-icon.png" alt="">
                 </div>
                 <div class="dashboard-column-order">
                     <p class="material-name">PET Bottles</p>
-                    <p class="total-items-text"> <?php echo $total_plastic ?> </p>
+                    <p class="total-items-text"> <?php echo $petBin?> % </p>
                 </div>
             </div>
 
@@ -106,7 +98,7 @@ $conn->close();
                 </div>
                 <div class="dashboard-column-order">
                     <p class="material-name">Glass Bottles</p>
-                    <p class="total-items-text"> <?php echo $total_glass ?> </p>
+                    <p class="total-items-text"> <?php echo $glassBin?> % </p>
                 </div>
             </div>
 
@@ -116,7 +108,7 @@ $conn->close();
                 </div>
                 <div class="dashboard-column-order">
                     <p class="material-name">Aluminum Cans</p>
-                    <p class="total-items-text"> <?php echo $total_aluminum ?> </p>
+                    <p class="total-items-text"> <?php echo $aluminumBin?> % </p>
                 </div>
             </div>
 
