@@ -111,10 +111,11 @@
             display: flex;
             flex-direction: row;
             align-items: center;
-            justify-content: space-between;
+            justify-content: flex-end;
        }
 
         .top-nav-user-name {
+            padding-right: 20px;
             color: var(--color-black-1);
             font-size: var(--font-size-main);
         }

@@ -9,21 +9,29 @@
         $lname = $_POST['lName'];  
         $physicalAddress = $_POST['physicalAddress'];  
         $email = $_POST['createEmail'];  
+
         $password = $_POST['createPassword'];  
         $hashPassword = password_hash($password, PASSWORD_DEFAULT); // Hash Password
-        $rfidTag = $_POST['rfidTag'];  
-        $rfidTagValid = str_replace(' ', '', $rfidTag); // Remove whitespace in input
 
-        $checkExisting = mysqli_query($conn, "SELECT * FROM account_creation_history WHERE acc_email = '$email' OR rfid_uid = '$rfidTagValid' ");
+        $rfidTag = strtoupper($_POST['rfidTag']);  // Convert to uppercase
+        $rfidTagValid = str_replace(' ', '', $rfidTag); // Remove whitespaces
+
+        $checkStmt = $conn->prepare("SELECT * FROM users_account WHERE acc_email = ? OR rfid_uid = ?");
+        $checkStmt->bind_param("ss", $email, $rfidTagValid);
+        $checkStmt->execute();
+        $checkResult = $checkStmt->get_result();
         
-        if (mysqli_num_rows($checkExisting) > 0 ) {
+        if ($checkResult->num_rows > 0) {
             $_SESSION['success_message'] = 'Error: Email or RFID UID Already Exists.';
             header("Location: " . $_SERVER['PHP_SELF']);
             exit(); 
             
         } else {
-            $createAccData = mysqli_query($conn, "INSERT INTO account_creation_history (f_name, l_name, physical_address, acc_email, acc_pass, rfid_uid, time_stamp)
-                VALUES ('$fname', '$lname', '$physicalAddress', '$email', '$hashPassword', '$rfidTagValid', NOW())");
+            $insertStmt = $conn->prepare("INSERT INTO users_account (f_name, l_name, physical_address, acc_email, acc_pass, rfid_uid, time_stamp)
+                VALUES (?, ?, ?, ?, ?, ? NOW())");
+            $insertStmt->bind_param("ssssss", $fname, $lname, $physicalAddress, $email, $hashPassword,  $rfidTagValid);
+            $insertStmt->execute();
+            
             $_SESSION['success_message'] = 'Account Created Successfully!';
             header("Location: " . $_SERVER['PHP_SELF']); 
             exit(); 
@@ -31,14 +39,14 @@
     }
 
     if (isset($_SESSION['success_message'])) {
-        echo "<script>alert(' " . $_SESSION['success_message'] . " ');</script>";
+        echo "<script>alert('" . $_SESSION['success_message'] . "');</script>";
         unset($_SESSION['success_message']); 
     }
-    
 
     $conn->close();
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -87,7 +95,7 @@
         <div class="top-nav">
             <p class="top-nav-title">Create User Account</p>
             <div class="top-nav-user-div">
-                <p class="top-nav-user-name">Kurt Ouano</p>
+                <p class="top-nav-user-name">Admin</p>
                 <button class="top-nav-user-icon">
                     <img src="assets/create-account-icon.png" alt="">
                 </button>
