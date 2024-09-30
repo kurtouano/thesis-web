@@ -77,7 +77,15 @@ $conn->close();
 
     <main>
 
-    <?php require 'require/topnav.php'; ?>
+        <div class="top-nav">
+            <p class="top-nav-title">Dashboard</p>
+            <div class="top-nav-user-div">
+                <p class="top-nav-user-name">Kurt Ouano</p>
+                <button class="top-nav-user-icon">
+                    <img src="assets/create-account-icon.png" alt="">
+                </button>
+            </div>
+        </div>
 
         <div class="grid-main">
             <div class="dashboard-today-text"><?php echo date(" F j, Y") . " (" . date("l") . ")"; ?></div>
@@ -116,7 +124,7 @@ $conn->close();
 
 
         <div class="dashboard-charts-div">
-            <div class="chart-date-text">Statistics</div>
+            <div class="chart-date-text">Data Statistics</div>
             <div class="chart-controls">
                 <select id="timePeriod" onchange="changePeriod(this.value)">
                     <option value="week">Week</option>
@@ -124,7 +132,7 @@ $conn->close();
                     <option value="year">Year</option>
                 </select>
             </div>
-            <div class="dashboard-charts">
+            <div class="dashboard-charts">   
                 <canvas id="myBarChart"></canvas>
                 <canvas id="myPieChart"></canvas>
             </div>
