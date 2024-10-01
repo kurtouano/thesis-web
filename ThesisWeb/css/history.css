@@ -1,0 +1,68 @@
+
+    .recent-transaction-div {
+        position: relative;
+        width: 100%;
+        margin-top: 90px;
+    }
+
+    .recent-transaction-table-div {
+        overflow-y: scroll;
+        height: 350px;
+    }
+
+    .recent-transaction-text {
+        position: absolute;
+        top: -35px;
+        color: black;
+        font-weight: bold;
+        font-size: 1rem;
+    }
+
+    .recent-transaction-div table {
+        font-size: 0.9rem;
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .recent-transaction-div th {
+        background-color: #f2f2f2; 
+        padding: 10px; 
+        border: 1px solid #ddd; 
+        text-align: left; 
+    }
+
+    .recent-transaction-div td {
+        padding: 10px; 
+        border: 1px solid #ddd; 
+        text-align: left; 
+    }
+
+    .recent-transaction-div tr:hover {
+        background-color: #f1f1f1; /* Change background color on hover */
+    }
+
+    .date-selection-form {
+        position: absolute;
+        width: 350px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+
+        top: -35px;
+        right: 10px;
+        color: black;
+        font-size: 1rem;
+    }
+
+    .date-selection-form input {
+        font-family: Roboto;
+    }
+
+    .date-selection-form button {
+        padding: 2.5px 15px;
+        background-color: var(--color-green-1);
+        border: none;
+        color: white;
+        border-radius: 10px;
+    }

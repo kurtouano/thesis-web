@@ -22,9 +22,9 @@
                 Dashboard
             </a>
 
-            <a href="bin-capacity.php" class="nav-icons">
+            <a href="history.php" class="nav-icons">
                 <img class="nav-icons-img" src="assets/bins-icon.png" alt="">
-                Bin Capacity
+                Transaction History
             </a>
 
             <a href="create-acc.php" class="nav-icons">
@@ -47,7 +47,7 @@
         <div class="top-nav-user-div">
             <p class="top-nav-user-name">Admin</p>
             <button class="top-nav-user-icon">
-                <img src="assets/create-account-icon.png" alt="">
+                <img src="assets/user-icon2.png" alt="">
             </button>
         </div>
     </div>

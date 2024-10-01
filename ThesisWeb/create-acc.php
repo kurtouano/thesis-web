@@ -17,6 +17,8 @@
         $password = $_POST['createPassword'];  
         $hashPassword = password_hash($password, PASSWORD_DEFAULT); // Hash Password
 
+        $confirmPassword = $_POST['retypePassword'];
+
         $rfidTag = strtoupper($_POST['rfidTag']);  // Convert to uppercase
         $rfidTagValid = str_replace(' ', '', $rfidTag); // Remove whitespaces
 
@@ -34,6 +36,10 @@
 
         $_SESSION['success_message'] = array(); // Array to stack errors 
         $_SESSION['success_message_option'] = 0;
+
+        if ($confirmPassword != $password) {
+            $_SESSION['success_message'][] = 'Passwords Do Not Match';
+        }
 
         if (strlen($rfidTagValid) < 8) { 
             $_SESSION['success_message'][] = 'RFID UID Should be 8 Characters Long.';
@@ -72,24 +78,24 @@
                 $mail->addAddress('kurt0216@gmail.com', 'user');  //Recipient
             
                 $mail->isHTML(true);                                  
-                $mail->Subject = 'RevendIt Account Registration';
+                $mail->Subject = 'RevendIt Successful Account Registration';
                 $mail->Body = 
-                        '
-                        <h3>You have Successfully Registered your Email to RevendIt!</h3>
-                        <hr>
-                        <p>                          </p>
-                        <h4>Account Details:</h4>
-                        <p>Email: ' . htmlspecialchars($email) . '</p> 
-                        <p>RFID UID: ' . htmlspecialchars($rfidTagValid) . '</p> 
-                        <p>Access this link to view your account: <a href="#">RevendIt User Dashboard</a></p>
-                        <hr>
-                        <h4>Please Keep These Details in Confidentiality</h4>
-                        
-                        ';
+                            "<h3>Welcome to RevendIt, " . htmlspecialchars($fname) . "!</h3>
+                            
+                            <p>Thank you for registering your email with us. We appreciate your choice to join the RevendIt community!</p>
+                            <p>Your journey towards a more sustainable future begins here, and we are excited to support you every step of the way.</p>
+                            <hr>
+                            <h4>Account Details:</h4>
+                            <p>Email:   " . htmlspecialchars($email) . "</p> 
+                            <p>RFID UID: " . htmlspecialchars($rfidTagValid) . "</p> 
+                            <p>Click the link to access your personal dashboard: <a href='#' style='color: #249339; font-weight: bold; text-decoration: none;'> RevendIt User Dashboard</a></p>
+                            <hr>
+                            <h4>Please Keep These Details in Confidentiality</h4>";
+
                 
                 if ($mail->send()) {
                     $_SESSION['success_message_option'] = 1;
-                    $_SESSION['success_message'][] = 'Account Created Successfully!';
+                    $_SESSION['success_message'][] = 'Account Created Successfully! <br> Please Check Your Email for More Info';
                     
                 } else {
                     $_SESSION['success_message'] = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
@@ -133,9 +139,9 @@
                 Dashboard
             </a>
 
-            <a href="bin-capacity.php" class="nav-icons">
+            <a href="History.php" class="nav-icons">
                 <img class="nav-icons-img" src="assets/bins-icon.png" alt="">
-                Bin Capacity
+                Transaction History
             </a>
 
             <a href="create-acc.php" class="nav-icons active">
@@ -158,19 +164,20 @@
             <div class="top-nav-user-div">
                 <p class="top-nav-user-name">Admin</p>
                 <button class="top-nav-user-icon">
-                    <img src="assets/create-account-icon.png" alt="">
+                    <img src="assets/user-icon2.png" alt="">
                 </button>
             </div>
         </div>
 
         <div class="create-acc-form-div">
             <form class="create-acc-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                <input type="text" name="fName" id="fName" placeholder="First Name" required>
-                <input type="text" name="lName" id="lName" placeholder="Last Name" required>
-                <input type="text" name="physicalAddress" id="physicalAddress" placeholder="Physical Address" required>
-                <input type="email" name="createEmail" id="createEmail" placeholder="Email" required>
-                <input type="text" name="createPassword" id="createPassword" placeholder="Password" autocomplete="off" required>
-                <input type="text" name="rfidTag" id="rfidTag" placeholder="RFID UID (8 Characters Long)" required autocomplete="off" maxlength="8">
+                <input type="text" name="fName" placeholder="First Name" required>
+                <input type="text" name="lName" placeholder="Last Name" required>
+                <input type="text" name="physicalAddress" placeholder="Physical Address" required>
+                <input type="email" name="createEmail" placeholder="Email" required>
+                <input type="password" name="createPassword" placeholder="Create Password" autocomplete="off" required>
+                <input type="password" name="retypePassword" placeholder="Confirm Password" autocomplete="off" required>
+                <input type="text" name="rfidTag" placeholder="RFID UID (8 Characters Long)" required autocomplete="off" maxlength="8">
                 <button class="create-acc-submit-btn" type="submit" name="create-acc-submit">Create Account</button>
 
             </form>
@@ -181,20 +188,20 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script> 
-        let messageTextOption = "<?php echo $_SESSION['success_message_option'] ?? ''; ?>"; 
-        let messageText = "<?php echo implode('\\n', $_SESSION['success_message'] ?? ''); ?>"; 
+        let messageTextOption = "<?php echo $_SESSION['success_message_option']; ?>"; 
+        let messageText = "<?php echo implode('<br>', $_SESSION['success_message']); ?>"; // Turn array into one string and add newline for each
 
         if (messageText != '') {
             if (messageTextOption == 1) {
                 Swal.fire({
                     title: "SUCCESS!",
-                    text: messageText,
+                    html: messageText,
                     icon: "success"
                 });
             } else {
                 Swal.fire({
                     title: "ERROR",
-                    text: messageText,
+                    html: messageText,
                     icon: "error"
                 });
             }            
@@ -205,10 +212,7 @@
             unset($_SESSION['success_message']);
             ?>
 
-
     </script>
-
-
     
 </body>
 </html>

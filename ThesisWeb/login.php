@@ -18,6 +18,9 @@
 <body class="login-bg-img">
     
     <div class="login-content-div">
+        <div class="login-content-shadow-top"></div>
+        <div class="login-content-shadow-right"></div>
+        <div class="login-content-shadow-bottom"></div>
         <div class="login-column-order">
             <img src="assets/main-logo-dark.png" alt="">
                 <form class="login-form" action="<?php echo htmlspecialchars(string: $_SERVER["PHP_SELF"]); ?>" method="post">

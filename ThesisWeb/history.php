@@ -1,31 +1,47 @@
 <?php
-    require 'require/dbconf.php';
+require 'require/dbconf.php';
 
-    $today = date('Y-m-d');
-    
-    $recentTransactions = mysqli_query($conn, "SELECT id, email, rfid_uid, material_type, material_quantity, points_earned, timestamp FROM transaction_records WHERE DATE(timestamp) = '$today' ORDER BY id DESC");
-    $getTotalMaterials = mysqli_query($conn, "SELECT material_type, SUM(material_quantity) AS total_quantity 
-                          FROM transaction_records
-                          WHERE DATE(timestamp) = CURDATE() 
-                          GROUP BY material_type"); 
+// Set default dates to today
+$fromDate = date('Y-m-d');
+$toDate = date('Y-m-d');
 
-    $total_plastic = 0;
-    $total_glass = 0;
-    $total_aluminum = 0;
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get the selected dates
+    $fromDate = $_POST['from_date'];
+    $toDate = $_POST['to_date'];
+}
 
-    if ($getTotalMaterials->num_rows > 0) {
-        while ($row = $getTotalMaterials->fetch_assoc()) {
-            if ($row['material_type'] == 'Plastic') {
-                $total_plastic = $row['total_quantity'];
-            } elseif ($row['material_type'] == 'Glass') {
-                $total_glass = $row['total_quantity'];
-            } elseif ($row['material_type'] == 'Aluminum') {
-                $total_aluminum = $row['total_quantity'];
-            }
+// Prepare the SQL query based on the selected dates
+$recentTransactions = mysqli_query($conn, "SELECT id, email, rfid_uid, material_type, material_quantity, points_earned, timestamp 
+    FROM transaction_records 
+    WHERE DATE(timestamp) BETWEEN '$fromDate' AND '$toDate' 
+    ORDER BY id DESC");
+
+// Get total materials
+$getTotalMaterials = mysqli_query($conn, "SELECT material_type, SUM(material_quantity) AS total_quantity 
+    FROM transaction_records
+    WHERE DATE(timestamp) BETWEEN '$fromDate' AND '$toDate' 
+    GROUP BY material_type"); 
+
+$total_plastic = 0;
+$total_glass = 0;
+$total_aluminum = 0;
+
+if ($getTotalMaterials->num_rows > 0) {
+    while ($row = $getTotalMaterials->fetch_assoc()) {
+        if ($row['material_type'] == 'Plastic') {
+            $total_plastic = $row['total_quantity'];
+        } elseif ($row['material_type'] == 'Glass') {
+            $total_glass = $row['total_quantity'];
+        } elseif ($row['material_type'] == 'Aluminum') {
+            $total_aluminum = $row['total_quantity'];
         }
     }
-    $conn->close();
+}
+$conn->close();
 ?>
+
 
 
 <!DOCTYPE html>
@@ -37,7 +53,7 @@
 
     <link rel="stylesheet" href="css/main.css"> 
     <link rel="stylesheet" href="css/dashboard.css">
-    <link rel="stylesheet" href="css/bin-capacity.css">  
+    <link rel="stylesheet" href="css/history.css">  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 
@@ -54,9 +70,9 @@
                 Dashboard
             </a>
 
-            <a href="bin-capacity.php" class="nav-icons active">
+            <a href="history.php" class="nav-icons active">
                 <img class="nav-icons-img" src="assets/bins-icon.png" alt="">
-                Bin Capacity
+                Transaction History
             </a>
 
             <a href="create-acc.php" class="nav-icons">
@@ -79,7 +95,7 @@
         <div class="top-nav-user-div">
             <p class="top-nav-user-name">Admin</p>
             <button class="top-nav-user-icon">
-                <img src="assets/create-account-icon.png" alt="">
+                <img src="assets/user-icon2.png" alt="">
             </button>
         </div>
     </div>
@@ -120,7 +136,16 @@
 
 
     <div class="recent-transaction-div">
-        <p class="recent-transaction-text">Today's Transaction History</p>
+        <p class="recent-transaction-text">Transaction History</p>
+
+        <form method="post" class="date-selection-form">
+            <input type="date" id="from_date" name="from_date" value="<?php echo $fromDate; ?>" required>
+            <p> - </p>
+            <input type="date" id="to_date" name="to_date" value="<?php echo $toDate; ?>" required>
+            
+            <button type="submit">Filter</button>
+        </form>
+
         <div class="recent-transaction-table-div">
             <table>
                 <tr>
@@ -148,9 +173,9 @@
                         echo "<tr><td colspan='6'>No data available</td></tr>";
                     }
                 ?>
-
             </table>
         </div>
+        
     </div>
 
     </main>

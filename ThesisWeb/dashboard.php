@@ -48,9 +48,9 @@ $conn->close();
                 Dashboard
             </a>
 
-            <a href="bin-capacity.php" class="nav-icons">
+            <a href="history.php" class="nav-icons">
                 <img class="nav-icons-img" src="assets/bins-icon.png" alt="">
-                Bin Capacity
+                Transaction History
             </a>
 
             <a href="create-acc.php" class="nav-icons">
@@ -72,14 +72,14 @@ $conn->close();
             <p class="top-nav-title">Dashboard</p>
             <div class="top-nav-user-div">
                 <p class="top-nav-user-name">Admin</p>
-                <button class="top-nav-user-icon">
-                    <img src="assets/create-account-icon.png" alt="">
-                </button>
+                <a href="login.php" class="top-nav-user-icon">
+                    <img src="assets/user-icon2.png" alt="">
+                </a>
             </div>
         </div>
 
         <div class="grid-main">
-            <div class="dashboard-today-text"><?php echo date(" F j, Y") . " (" . date("l") . ")"; ?></div>
+            <div class="dashboard-today-text">Bin Capacity</div>
             
             <div class="dashboard-div">
                 <div class="dashboard-icon" style="background-color: #1D7031;">
