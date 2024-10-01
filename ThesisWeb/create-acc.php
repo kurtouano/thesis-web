@@ -3,10 +3,7 @@
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
 
-    require 'PHPMailer/src/Exception.php';
-    require 'PHPMailer/src/PHPMailer.php';
-    require 'PHPMailer/src/SMTP.php';
-
+    require 'vendor/autoload.php';
     require 'require/dbconf.php';
 
     session_start();
@@ -36,16 +33,21 @@
         $rfidCheckResult = $rfidCheckStmt->get_result();
 
         $_SESSION['success_message'] = array(); // Array to stack errors 
-        
-        if ($emailCheckResult->num_rows > 0) {
-            $_SESSION['success_message_option'] = 0;
-            $_SESSION['success_message'][] = 'Email Already Exists.';
-            
-        } else if ($rfidCheckResult->num_rows > 0) {
-            $_SESSION['success_message_option'] = 1;
-            $_SESSION['success_message'][] = 'RFID UID Already Exists.';
+        $_SESSION['success_message_option'] = 0;
 
-        } else {
+        if (strlen($rfidTagValid) < 8) { 
+            $_SESSION['success_message'][] = 'RFID UID Should be 8 Characters Long.';
+        }
+
+        if ($emailCheckResult->num_rows > 0) {
+            $_SESSION['success_message'][] = 'Email Already Exists.';
+        } 
+        
+        if ($rfidCheckResult->num_rows > 0) {
+            $_SESSION['success_message'][] = 'RFID UID Already Exists.';
+        } 
+        
+        if (empty($_SESSION['success_message'])) {
             $insertStmt = $conn->prepare("INSERT INTO users_account (f_name, l_name, physical_address, acc_email, acc_pass, rfid_uid, time_stamp)
                 VALUES (?, ?, ?, ?, ?, ?, NOW())");
             $insertStmt->bind_param("ssssss", $fname, $lname, $physicalAddress, $email, $hashPassword,  $rfidTagValid);
@@ -75,31 +77,31 @@
                         '
                         <h3>You have Successfully Registered your Email to RevendIt!</h3>
                         <hr>
+                        <p>                          </p>
                         <h4>Account Details:</h4>
                         <p>Email: ' . htmlspecialchars($email) . '</p> 
                         <p>RFID UID: ' . htmlspecialchars($rfidTagValid) . '</p> 
                         <p>Access this link to view your account: <a href="#">RevendIt User Dashboard</a></p>
                         <hr>
-                        <h4>Please Don\'t Show Anyone These Details</h4>
+                        <h4>Please Keep These Details in Confidentiality</h4>
                         
                         ';
                 
                 if ($mail->send()) {
-                    $_SESSION['success_message_option'] = 2;
-                    $_SESSION['success_message'] = 'Account Created Successfully!';
-                    header("Location: " . $_SERVER['PHP_SELF']); 
-                    exit(); 
+                    $_SESSION['success_message_option'] = 1;
+                    $_SESSION['success_message'][] = 'Account Created Successfully!';
+                    
                 } else {
-                    $_SESSION['success_message_option'] = 3;
                     $_SESSION['success_message'] = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-                    header("Location: " . $_SERVER['PHP_SELF']); 
-                    exit(); 
                 }  
             } catch (Exception $e) {
                 echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
             }
 
         }
+
+        header('Location: '. $_SERVER['PHP_SELF']);
+        exit();
     }
 
     $conn->close();
@@ -180,32 +182,28 @@
 
     <script> 
         let messageTextOption = "<?php echo $_SESSION['success_message_option'] ?? ''; ?>"; 
-        let messageText = "<?php echo $_SESSION['success_message']; ?>";  
+        let messageText = "<?php echo implode('\\n', $_SESSION['success_message'] ?? ''); ?>"; 
 
         if (messageText != '') {
             if (messageTextOption == 1) {
-                Swal.fire({
-                    title: "ERROR",
-                    text: messageText,
-                    icon: "error"
-                });
-            } else if (messageTextOption == 2) {
                 Swal.fire({
                     title: "SUCCESS!",
                     text: messageText,
                     icon: "success"
                 });
-            } else if (messageTextOption == 3) {
+            } else {
                 Swal.fire({
                     title: "ERROR",
                     text: messageText,
                     icon: "error"
                 });
-            }
-
-            <?php unset($_SESSION['success_message_option']); ?>
-            <?php unset($_SESSION['success_message']); ?>
+            }            
         }
+
+        <?php 
+            unset($_SESSION['success_message_option']);
+            unset($_SESSION['success_message']);
+            ?>
 
 
     </script>
