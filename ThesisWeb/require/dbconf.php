@@ -12,4 +12,6 @@
         die("Database connection error. Please try again later.");
     }
 
+    date_default_timezone_set('Asia/Manila');
+
 ?>

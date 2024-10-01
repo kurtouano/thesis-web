@@ -1,6 +1,5 @@
         
         .login-bg-img {
-            background: url(assets/login-bg.jpg);
             background-size:cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
@@ -23,7 +22,7 @@
         }
 
         .login-column-order img {
-            width: 300px;
+            width: 250px;
         }
 
         .login-form {
@@ -34,17 +33,20 @@
             width: 280px;
             padding: 2% 0 0 0;
             border-radius: 10px;
-            background-color: var(--color-green-1);
+            background-color: var(--color-black-1);
             padding: 30px;
             color: white;
             
         }
 
-        .login-form h3 {
+        .login-form .form-title {
+            font-size: 1.1rem;
+            font-weight: bold;
             padding: 0 0 50px 0;
         }
 
         .login-form input {
+            font-size: 1rem;
             padding: 15px;
             width: 85%;
             margin-bottom: 30px;
@@ -53,11 +55,12 @@
         }
 
         .login-submit-btn {
+            font-size: 0.9rem;
             margin: 50px 0 0 0;
             padding: 10px;
             width: 55%;
 
-            background-color: var(--color-black-1);
+            background-color: var(--color-green-1);
             border-radius: 20px;
             border: none;
            

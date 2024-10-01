@@ -1,7 +1,6 @@
 <?php
 
 require 'require/dbconf.php';
-date_default_timezone_set('Asia/Manila');
 
 $getBinsCapacity = mysqli_query($conn, "SELECT pet_bin, glass_bin, aluminum_bin, date_time FROM bins_capacity ORDER BY date_time DESC LIMIT 1");
 

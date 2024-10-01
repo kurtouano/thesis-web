@@ -19,9 +19,9 @@
     
     <div class="login-content-div">
         <div class="login-column-order">
-            <img src="assets/main-logo.png" alt="">
+            <img src="assets/main-logo-dark.png" alt="">
                 <form class="login-form" action="<?php echo htmlspecialchars(string: $_SERVER["PHP_SELF"]); ?>" method="post">
-                    <h3>Login</h3>
+                    <p class="form-title">Login</p>
 
                     <label for="logEmail"></label>
                     <input type="email" name="logEemail" id="logEmail" placeholder="Email" required>
