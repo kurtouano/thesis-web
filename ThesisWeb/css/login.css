@@ -1,6 +1,6 @@
         
         .login-bg-img {
-            background-image: url("../assets/login-bg2.jpg");
+            background-image: url("../assets/login-bg.jpg");
             background-size:cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
@@ -16,30 +16,6 @@
             justify-content: center;
         }
 
-        .login-content-shadow-top {
-            position: absolute;
-            z-index: -1;
-            background-color: var(--color-green-1);
-            height: 60px;
-            width: 355px;
-            top: 16%; 
-            left: 50%; /* Center it horizontally */
-            transform: translateX(-153px) skew(-40deg);
-            border-radius: 10px 30px;
-        }
-
-        .login-content-shadow-right {
-            position: absolute;
-            z-index: -1;
-            background-color: var(--color-green-1);
-            top: 100px;
-            height: 412px;
-            width: 60px;
-            left: 50%; /* Center it horizontally */
-            transform: translateX(155px) skewY(-40deg);
-            border-radius: 10px 30px 10px 10px;
-        }
-        
         .login-column-order {
             display: flex;
             flex-direction: column;
@@ -62,7 +38,6 @@
             background-color: var(--color-black-1);
             padding: 30px;
             color: white;
-            
         }
 
         .login-form .form-title {
@@ -72,12 +47,17 @@
         }
 
         .login-form input {
-            font-size: 1rem;
+            font-size: 0.9rem;
             padding: 15px;
             width: 85%;
             margin-bottom: 30px;
             border: none;
             border-radius: 5px;
+        }
+
+        .login-forgot-pass {
+            font-size: 0.9rem;
+            color: white;
         }
 
         .login-submit-btn {

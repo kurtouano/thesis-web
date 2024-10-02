@@ -1,6 +1,35 @@
 <?php
-    session_start();
 
+    require 'require/dbconf.php';
+    
+    session_start();
+    
+    if (isset($_POST['login-submit'])){
+        $logEmail = $_POST['logEmail'];
+        $logPass = $_POST['logPassword'];
+
+        $verifyPass = $conn->prepare("SELECT acc_pass FROM users_account WHERE acc_email = ?");
+        $verifyPass->bind_param("s", $logEmail);
+        $verifyPass->execute();
+        $verifyPassResult = $verifyPass->get_result();
+
+        if ($verifyPassResult->num_rows > 0) {
+            $user = $verifyPassResult->fetch_assoc();
+            $hashedPassword = $user['acc_pass'];
+    
+            if (password_verify($logPass, $hashedPassword)) {
+                $_SESSION['loginSuccess'] = 1;
+            } else {
+                $_SESSION['loginSuccess'] = 2;
+            }
+        } else {
+            $_SESSION['loginSuccess'] = 3;
+        }
+
+        header('Location: '. $_SERVER['PHP_SELF']);
+        exit();
+
+    }
 ?>
 
 <!DOCTYPE html>
@@ -18,24 +47,61 @@
 <body class="login-bg-img">
     
     <div class="login-content-div">
-        <div class="login-content-shadow-top"></div>
-        <div class="login-content-shadow-right"></div>
-        <div class="login-content-shadow-bottom"></div>
         <div class="login-column-order">
             <img src="assets/main-logo-dark.png" alt="">
                 <form class="login-form" action="<?php echo htmlspecialchars(string: $_SERVER["PHP_SELF"]); ?>" method="post">
                     <p class="form-title">Login</p>
 
                     <label for="logEmail"></label>
-                    <input type="email" name="logEemail" id="logEmail" placeholder="Email" required>
+                    <input type="email" name="logEmail" id="logEmail" placeholder="Email" required>
 
                     <label for="logPassword"></label>
                     <input type="password" name="logPassword" id="logPassword" placeholder="Password" required>
 
-                    <button class="login-submit-btn" type="submit" name="logSubmit">Sign in</button>
+                    <a class="login-forgot-pass" href="#">Forgot Password</a>
+
+                    <button class="login-submit-btn" type="submit" name="login-submit">Sign in</button>
                 </form>
         </div>
     </div>
     
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+
+        let successNotif = <?php echo $_SESSION['loginSuccess']; ?>
+        
+        if (successNotif != '') {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top",
+                showConfirmButton: false,
+                timer: 2500,
+                timerProgressBar: true,
+                });
+            if (successNotif == 1) {
+                Toast.fire({
+                icon: "success",
+                title: "Signed in successfully"
+                });
+            } else if (successNotif == 2) {
+                Toast.fire({
+                icon: "error",
+                title: "Incorrect Password"
+                });
+            } else if (successNotif == 3) {
+                Toast.fire({
+                icon: "error",
+                title: "No Account Found with That Email Address"
+                });
+            }
+            
+        }
+
+        <?php
+            unset($_SESSION['loginSuccess']);
+        ?>
+        
+
+    </script>
 </body>
 </html>

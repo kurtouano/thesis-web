@@ -16,7 +16,6 @@ if ($getBinsCapacity) {
     }
 }
 
-
 $conn->close();
 
 ?>
