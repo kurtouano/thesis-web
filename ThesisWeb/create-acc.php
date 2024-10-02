@@ -1,86 +1,86 @@
 <?php
 
-    use PHPMailer\PHPMailer\PHPMailer;
-    use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
-    require 'vendor/autoload.php';
-    require 'require/dbconf.php';
+require 'vendor/autoload.php';
+require 'require/dbconf.php';
 
-    session_start();
+session_start();
 
-    if (isset($_POST['create-acc-submit'])) {
-        $fname = $_POST['fName']; 
-        $lname = $_POST['lName'];  
-        $physicalAddress = $_POST['physicalAddress'];  
-        $email = $_POST['createEmail'];  
+if (isset($_POST['create-acc-submit'])) {
+    $fname = $_POST['fName'];
+    $lname = $_POST['lName'];
+    $physicalAddress = $_POST['physicalAddress'];
+    $email = $_POST['createEmail'];
 
-        $password = $_POST['createPassword'];  
-        $hashPassword = password_hash($password, PASSWORD_DEFAULT); // Hash Password
+    $password = $_POST['createPassword'];
+    $hashPassword = password_hash($password, PASSWORD_DEFAULT); // Hash Password
 
-        $confirmPassword = $_POST['retypePassword'];
+    $confirmPassword = $_POST['retypePassword'];
 
-        $rfidTag = strtoupper($_POST['rfidTag']);  // Convert to uppercase
-        $rfidTagValid = str_replace(' ', '', $rfidTag); // Remove whitespaces
+    $rfidTag = strtoupper($_POST['rfidTag']);  // Convert to uppercase
+    $rfidTagValid = str_replace(' ', '', $rfidTag); // Remove whitespaces
 
-        // Check if Email Exists
-        $emailCheckStmt = $conn->prepare("SELECT * FROM users_account WHERE acc_email = ?");
-        $emailCheckStmt->bind_param("s", $email);
-        $emailCheckStmt->execute();
-        $emailCheckResult = $emailCheckStmt->get_result();
+    // Check if Email Exists
+    $emailCheckStmt = $conn->prepare("SELECT * FROM users_account WHERE acc_email = ?");
+    $emailCheckStmt->bind_param("s", $email);
+    $emailCheckStmt->execute();
+    $emailCheckResult = $emailCheckStmt->get_result();
 
-        // Check if RFID UID exists
-        $rfidCheckStmt = $conn->prepare("SELECT * FROM users_account WHERE rfid_uid = ?");
-        $rfidCheckStmt->bind_param("s", $rfidTagValid);
-        $rfidCheckStmt->execute();
-        $rfidCheckResult = $rfidCheckStmt->get_result();
+    // Check if RFID UID exists
+    $rfidCheckStmt = $conn->prepare("SELECT * FROM users_account WHERE rfid_uid = ?");
+    $rfidCheckStmt->bind_param("s", $rfidTagValid);
+    $rfidCheckStmt->execute();
+    $rfidCheckResult = $rfidCheckStmt->get_result();
 
-        $_SESSION['success_message'] = array(); // Array to stack errors 
-        $_SESSION['success_message_option'] = 0;
+    $_SESSION['success_message'] = array(); // Array to stack errors 
+    $_SESSION['success_message_option'] = 0;
 
-        if ($confirmPassword != $password) {
-            $_SESSION['success_message'][] = 'Passwords Do Not Match';
-        }
+    if ($confirmPassword != $password) {
+        $_SESSION['success_message'][] = 'Passwords Do Not Match';
+    }
 
-        if (strlen($rfidTagValid) < 8) { 
-            $_SESSION['success_message'][] = 'RFID UID Should be 8 Characters Long.';
-        }
+    if (strlen($rfidTagValid) < 8) {
+        $_SESSION['success_message'][] = 'RFID UID Should be 8 Characters Long.';
+    }
 
-        if ($emailCheckResult->num_rows > 0) {
-            $_SESSION['success_message'][] = 'Email Already Exists.';
-        } 
-        
-        if ($rfidCheckResult->num_rows > 0) {
-            $_SESSION['success_message'][] = 'RFID UID Already Exists.';
-        } 
-        
-        if (empty($_SESSION['success_message'])) {
-            $insertStmt = $conn->prepare("INSERT INTO users_account (f_name, l_name, physical_address, acc_email, acc_pass, rfid_uid, time_stamp)
+    if ($emailCheckResult->num_rows > 0) {
+        $_SESSION['success_message'][] = 'Email Already Exists.';
+    }
+
+    if ($rfidCheckResult->num_rows > 0) {
+        $_SESSION['success_message'][] = 'RFID UID Already Exists.';
+    }
+
+    if (empty($_SESSION['success_message'])) {
+        $insertStmt = $conn->prepare("INSERT INTO users_account (f_name, l_name, physical_address, acc_email, acc_pass, rfid_uid, time_stamp)
                 VALUES (?, ?, ?, ?, ?, ?, NOW())");
-            $insertStmt->bind_param("ssssss", $fname, $lname, $physicalAddress, $email, $hashPassword,  $rfidTagValid);
-            $insertStmt->execute();
-        
+        $insertStmt->bind_param("ssssss", $fname, $lname, $physicalAddress, $email, $hashPassword,  $rfidTagValid);
+        $insertStmt->execute();
 
-            $mail = new PHPMailer(true);
 
-            try {
-                $mail->isSMTP();                                            //Send using SMTP
-                $mail->SMTPAuth   = true;                                   //Enable SMTP authentication                                  
+        $mail = new PHPMailer(true);
 
-                $mail->Host       = 'smtp.gmail.com';                       //Set the SMTP server to send through
-                $mail->Username   = 'kurt0216@gmail.com';                   //SMTP username
-                $mail->Password   = 'wmelqvpugzbtuxhg';                     //APP PASSWORD
-                
-                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Enable implicit TLS encryption
-                $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-            
-                //Recipients
-                $mail->setFrom('kurt0216@gmail.com', 'RevendIt'); //Sender
-                $mail->addAddress('kurt0216@gmail.com', 'user');  //Recipient
-            
-                $mail->isHTML(true);                                  
-                $mail->Subject = 'RevendIt Successful Account Registration';
-                $mail->Body = 
-                            "<h3>Welcome to RevendIt, " . htmlspecialchars($fname) . "!</h3>
+        try {
+            $mail->isSMTP();                                            //Send using SMTP
+            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication                                  
+
+            $mail->Host       = 'smtp.gmail.com';                       //Set the SMTP server to send through
+            $mail->Username   = 'kurt0216@gmail.com';                   //SMTP username
+            $mail->Password   = 'wmelqvpugzbtuxhg';                     //APP PASSWORD
+
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Enable implicit TLS encryption
+            $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+            //Recipients
+            $mail->setFrom('kurt0216@gmail.com', 'RevendIt'); //Sender
+            $mail->addAddress('kurt0216@gmail.com', 'user');  //Recipient
+
+            $mail->isHTML(true);
+            $mail->Subject = 'RevendIt Successful Account Registration';
+            $mail->Body =
+                "<h3>Welcome to RevendIt, " . htmlspecialchars($fname) . "!</h3>
                             
                             <p>Thank you for registering your email with us. We appreciate your choice to join the RevendIt community!</p>
                             <p>Your journey towards a more sustainable future begins here, and we are excited to support you every step of the way.</p>
@@ -92,38 +92,37 @@
                             <hr>
                             <h4>Please Keep These Details in Confidentiality</h4>";
 
-                
-                if ($mail->send()) {
-                    $_SESSION['success_message_option'] = 1;
-                    $_SESSION['success_message'][] = 'Account Created Successfully! <br> Please Check Your Email for More Info';
-                    
-                } else {
-                    $_SESSION['success_message'] = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-                }  
-            } catch (Exception $e) {
-                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+
+            if ($mail->send()) {
+                $_SESSION['success_message_option'] = 1;
+                $_SESSION['success_message'][] = 'Account Created Successfully! <br> Please Check Your Email for More Info';
+            } else {
+                $_SESSION['success_message'] = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
             }
-
+        } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
-
-        header('Location: '. $_SERVER['PHP_SELF']);
-        exit();
     }
 
-    $conn->close();
+    header('Location: ' . $_SERVER['PHP_SELF']);
+    exit();
+}
+
+$conn->close();
 
 ?>
 
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thesis Website</title>
 
-    <link rel="stylesheet" href="css/main.css"> 
-    <link rel="stylesheet" href="css/create-acc.css"> 
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/create-acc.css">
 </head>
 
 <body>
@@ -148,12 +147,12 @@
                 <img class="nav-icons-img" src="assets/user-icon.png" alt="">
                 Create User Account
             </a>
-            
+
             <a href="announcement.php" class="nav-icons">
                 <img class="nav-icons-img" src="assets/announcements-icon.png" alt="">
                 Announcements
             </a>
-            
+
         </div>
     </nav>
 
@@ -184,11 +183,11 @@
         </div>
 
     </main>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script> 
-        let messageTextOption = "<?php echo $_SESSION['success_message_option']; ?>"; 
+    <script>
+        let messageTextOption = "<?php echo $_SESSION['success_message_option']; ?>";
         let messageText = "<?php echo implode('<br>', $_SESSION['success_message']); ?>"; // Turn array into one string and add newline for each
 
         if (messageText != '') {
@@ -204,15 +203,16 @@
                     html: messageText,
                     icon: "error"
                 });
-            }            
+            }
         }
 
-        <?php 
-            unset($_SESSION['success_message_option']);
-            unset($_SESSION['success_message']);
-            ?>
-
+        <?php
+        unset($_SESSION['success_message_option']);
+        unset($_SESSION['success_message']);
+        ?>
+        
     </script>
-    
+
 </body>
+
 </html>

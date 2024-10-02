@@ -5,20 +5,22 @@
     session_start();
     
     if (isset($_POST['login-submit'])){
-        $logEmail = $_POST['logEmail'];
+        $_SESSION['logEmail']  = $_POST['logEmail'];
         $logPass = $_POST['logPassword'];
 
         $verifyPass = $conn->prepare("SELECT acc_pass FROM users_account WHERE acc_email = ?");
-        $verifyPass->bind_param("s", $logEmail);
+        $verifyPass->bind_param("s", $_SESSION['logEmail']);
         $verifyPass->execute();
         $verifyPassResult = $verifyPass->get_result();
 
         if ($verifyPassResult->num_rows > 0) {
             $user = $verifyPassResult->fetch_assoc();
             $hashedPassword = $user['acc_pass'];
-    
+            
             if (password_verify($logPass, $hashedPassword)) {
                 $_SESSION['loginSuccess'] = 1;
+                header("Location: user-dashboard.php");
+                exit();
             } else {
                 $_SESSION['loginSuccess'] = 2;
             }
@@ -26,10 +28,12 @@
             $_SESSION['loginSuccess'] = 3;
         }
 
-        header('Location: '. $_SERVER['PHP_SELF']);
-        exit();
+        $loginSuccess = $_SESSION['loginSuccess'];
+        unset($_SESSION['loginSuccess']);
 
     }
+
+    $conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -68,7 +72,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
 
-        let successNotif = <?php echo $_SESSION['loginSuccess']; ?>
+        let successNotif = <?php echo $loginSuccess ?? ''; ?>
         
         if (successNotif != '') {
             const Toast = Swal.mixin({
@@ -78,12 +82,7 @@
                 timer: 2500,
                 timerProgressBar: true,
                 });
-            if (successNotif == 1) {
-                Toast.fire({
-                icon: "success",
-                title: "Signed in successfully"
-                });
-            } else if (successNotif == 2) {
+            if (successNotif == 2) {
                 Toast.fire({
                 icon: "error",
                 title: "Incorrect Password"
@@ -95,12 +94,8 @@
                 });
             }
             
+           
         }
-
-        <?php
-            unset($_SESSION['loginSuccess']);
-        ?>
-        
 
     </script>
 </body>
