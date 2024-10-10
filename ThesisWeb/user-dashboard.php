@@ -67,7 +67,7 @@
 
             <a href="user-dashboard.php" class="nav-icons active">
                 <img class="nav-icons-img" src="assets/bins-icon.png" alt="">
-                Transaction History
+                Dashboard
             </a>
 
             <a href="user-announcement.php" class="nav-icons">

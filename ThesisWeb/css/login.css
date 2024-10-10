@@ -58,6 +58,13 @@
         .login-forgot-pass {
             font-size: 0.9rem;
             color: white;
+            background-color: var(--color-black-1);
+            border: none;
+            text-decoration: underline;
+        }
+
+        .login-forgot-pass:hover {
+            cursor: pointer;
         }
 
         .login-submit-btn {
@@ -74,4 +81,11 @@
             font-family: Roboto;
 
             cursor: pointer;
+        }
+
+        .swal2-confirm {
+            order: 2; 
+        }
+        .swal2-cancel {
+            order: 1; 
         }

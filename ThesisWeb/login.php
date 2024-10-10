@@ -62,10 +62,10 @@
                     <label for="logPassword"></label>
                     <input type="password" name="logPassword" id="logPassword" placeholder="Password" required>
 
-                    <a class="login-forgot-pass" href="#">Forgot Password</a>
-
                     <button class="login-submit-btn" type="submit" name="login-submit">Sign in</button>
                 </form>
+
+                <button class="login-forgot-pass" style="display: none;" onclick="forgetPass();">Forgot Password</a>
         </div>
     </div>
     
@@ -93,8 +93,33 @@
                 title: "No Account Found with That Email Address"
                 });
             }
-            
-           
+        }
+
+        function forgetPass() {
+            Swal.mixin({
+                toast: true,
+                position: "right",
+                });
+            Swal.fire({
+                title: "Enter your email address",
+                input: "email",
+                inputPlaceholder: "Enter your email",
+                showConfirmButton: true,
+                showCancelButton: true,
+                
+                confirmButtonText: "Submit",
+
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'You need to write an email!';
+                }
+            }
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let forgetPassEmail = result.value;
+                }
+            });
         }
 
     </script>
