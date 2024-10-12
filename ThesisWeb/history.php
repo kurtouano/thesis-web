@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // Prepare the SQL query based on the selected dates
-$recentTransactions = mysqli_query($conn, "SELECT id, email, rfid_uid, material_type, material_quantity, points_earned, timestamp 
+$recentTransactions = mysqli_query($conn, "SELECT id, email, sector, rfid_uid, material_type, material_quantity, points_earned, timestamp 
     FROM transaction_records 
     WHERE DATE(timestamp) BETWEEN '$fromDate' AND '$toDate' 
     ORDER BY id DESC");
@@ -77,7 +77,7 @@ $conn->close();
 
             <a href="create-acc.php" class="nav-icons">
                 <img class="nav-icons-img" src="assets/user-icon.png" alt="">
-                Create User Account
+                Create Account
             </a>
             
             <a href="announcement.php" class="nav-icons">
@@ -91,7 +91,8 @@ $conn->close();
     <main>
 
     <div class="top-nav">
-        <p class="top-nav-title">Bin Capacity</p>
+        <p class="top-nav-title">Transaction History</p>
+        
         <div class="top-nav-user-div">
             <p class="top-nav-user-name">Admin</p>
             <button class="top-nav-user-icon">
@@ -101,7 +102,7 @@ $conn->close();
     </div>
 
     <div class="grid-main">
-        <div class="dashboard-today-text"><?php echo date(" F j, Y") . " (" . date("l") . ")"; ?></div>
+        <div class="dashboard-today-text"><?php echo date(" F j, Y") . " (" . date("l") . ")";  ?></div>
 
         <div class="dashboard-div">
             <div class="dashboard-icon" style="background-color: #1D7031;">
@@ -136,7 +137,7 @@ $conn->close();
 
 
     <div class="recent-transaction-div">
-        <p class="recent-transaction-text">Transaction History</p>
+        <p class="recent-transaction-text">Records</p> <!-- TRANSACTION TEXT -->
 
         <form method="post" class="date-selection-form">
             <input type="date" id="from_date" name="from_date" value="<?php echo $fromDate; ?>" required>
@@ -150,6 +151,7 @@ $conn->close();
             <table>
                 <tr>
                     <th>Email</th>
+                    <th>Sector</th>
                     <th>RFID UID</th>
                     <th>Material Type</th>
                     <th>Quantity</th>
@@ -162,6 +164,7 @@ $conn->close();
                         while($row = $recentTransactions->fetch_assoc()) {
                             echo "<tr>";
                             echo "<td>" . $row['email'] . "</td>";
+                            echo "<td>" . $row['sector'] . "</td>";
                             echo "<td>" . $row['rfid_uid'] . "</td>";
                             echo "<td>" . $row['material_type'] . "</td>";
                             echo "<td>" . $row['material_quantity'] . "</td>";

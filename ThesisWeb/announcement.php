@@ -29,7 +29,7 @@
 
             <a href="create-acc.php" class="nav-icons">
                 <img class="nav-icons-img" src="assets/user-icon.png" alt="">
-                Create User Account
+                Create Account
             </a>
             
             <a href="announcement.php" class="nav-icons active">

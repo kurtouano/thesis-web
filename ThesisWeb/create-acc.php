@@ -11,7 +11,8 @@ session_start();
 if (isset($_POST['create-acc-submit'])) {
     $fname = $_POST['fName'];
     $lname = $_POST['lName'];
-    $physicalAddress = $_POST['physicalAddress'];
+    $sector = $_POST['sector'];
+    $address = $_POST['address'];
     $email = $_POST['createEmail'];
 
     $password = $_POST['createPassword'];
@@ -54,9 +55,9 @@ if (isset($_POST['create-acc-submit'])) {
     }
 
     if (empty($_SESSION['success_message'])) {
-        $insertStmt = $conn->prepare("INSERT INTO users_account (f_name, l_name, physical_address, acc_email, acc_pass, rfid_uid, time_stamp)
-                VALUES (?, ?, ?, ?, ?, ?, NOW())");
-        $insertStmt->bind_param("ssssss", $fname, $lname, $physicalAddress, $email, $hashPassword,  $rfidTagValid);
+        $insertStmt = $conn->prepare("INSERT INTO users_account (f_name, l_name, sector, physical_address, acc_email, acc_pass, rfid_uid, time_stamp)
+                VALUES (?, ?, ?, ?, ?, ?, ?, NOW())");
+        $insertStmt->bind_param("sssssss", $fname, $lname, $sector, $address, $email, $hashPassword,  $rfidTagValid);
         $insertStmt->execute();
 
 
@@ -67,18 +68,18 @@ if (isset($_POST['create-acc-submit'])) {
             $mail->SMTPAuth   = true;                                   //Enable SMTP authentication                                  
 
             $mail->Host       = 'smtp.gmail.com';                       //Set the SMTP server to send through
-            $mail->Username   = 'kurt0216@gmail.com';                   //SMTP username
-            $mail->Password   = 'wmelqvpugzbtuxhg';                     //APP PASSWORD
+            $mail->Username   = 'revendit.system@gmail.com';            //SMTP username
+            $mail->Password   = 'djuiribxqydjoufd';                     //APP PASSWORD
 
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Enable implicit TLS encryption
             $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
             //Recipients
-            $mail->setFrom('kurt0216@gmail.com', 'RevendIt'); //Sender
-            $mail->addAddress('kurt0216@gmail.com', 'user');  //Recipient
+            $mail->setFrom('revendit.system@gmail.com', 'RevendIt');    //Sender
+            $mail->addAddress('kurt0216@gmail.com', 'user');            //Recipient
 
             $mail->isHTML(true);
-            $mail->Subject = 'RevendIt Successful Account Registration';
+            $mail->Subject = 'Successful Account Registration';
             $mail->Body =
                 "<h3>Welcome to RevendIt, " . htmlspecialchars($fname) . "!</h3>
                             
@@ -145,7 +146,7 @@ $conn->close();
 
             <a href="create-acc.php" class="nav-icons active">
                 <img class="nav-icons-img" src="assets/user-icon.png" alt="">
-                Create User Account
+                Create Account
             </a>
 
             <a href="announcement.php" class="nav-icons">
@@ -172,13 +173,31 @@ $conn->close();
             <form class="create-acc-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                 <input type="text" name="fName" placeholder="First Name" required>
                 <input type="text" name="lName" placeholder="Last Name" required>
-                <input type="text" name="physicalAddress" placeholder="Physical Address" required>
+                <select name="sector" required>
+                    <option value="" disabled selected>Select Sector</option>
+                    <option value="4ps">4P's</option>
+                    <option value="tugon">Tugon</option>
+                    <option value="lipena">Lipeña</option>
+                    <option value="lipeno">Lipeño</option>
+                    <option value="scholar">Scholar</option>
+                    <option value="kasama">Kasama</option>
+                    <option value="transport">Transport</option>
+                    <option value="pwd">PWD</option>
+                    <option value="eba">EBA</option>
+                    <option value="resident">Resident</option>
+                    <option value="tupad">TUPAD</option>
+                    <option value="senior">Senior</option>
+                    <option value="solo parent">Solo Parent</option>
+                    <option value="brgy functionaries">Brgy Functionaries</option>
+                    <option value="kasapi">Kasapi</option>
+                </select>
+                <input type="text" name="address" placeholder="Barangay (Lipa City)" required>
                 <input type="email" name="createEmail" placeholder="Email" required>
                 <input type="password" name="createPassword" placeholder="Create Password" autocomplete="off" required>
                 <input type="password" name="retypePassword" placeholder="Confirm Password" autocomplete="off" required>
                 <input type="text" name="rfidTag" placeholder="RFID UID (8 Characters Long)" required autocomplete="off" maxlength="8" style="text-transform: uppercase;">
-                <button class="create-acc-submit-btn" type="submit" name="create-acc-submit">Create Account</button>
 
+                <button class="create-acc-submit-btn" type="submit" name="create-acc-submit">Create Account</button>
             </form>
         </div>
 
@@ -210,7 +229,7 @@ $conn->close();
         unset($_SESSION['success_message_option']);
         unset($_SESSION['success_message']);
         ?>
-        
+
     </script>
 
 </body>

@@ -8,43 +8,43 @@ require 'require/dbconf.php';
 
 $getBinsCapacity = mysqli_query($conn, "SELECT pet_bin, glass_bin, aluminum_bin, isBinFull, date_time FROM bins_capacity ORDER BY date_time DESC LIMIT 1");
 
-    if ($getBinsCapacity) {
-        $row = mysqli_fetch_assoc($getBinsCapacity);
-        
-        if ($row) {
-            $petBin = $row['pet_bin'];
-            $glassBin = $row['glass_bin'];
-            $aluminumBin = $row['aluminum_bin'];
-            $lastStatus = $row['isBinFull'];
-            $currentStatus = 'Not Full'; // Default status
+if ($getBinsCapacity) {
+    $row = mysqli_fetch_assoc($getBinsCapacity);
 
-            if ($petBin >= 95 || $glassBin >= 95 || $aluminumBin >= 95) {
-                $currentStatus = 'Full';
-            } else if ($petBin >= 80 || $glassBin >= 80 || $aluminumBin >= 80) {
-                $currentStatus = 'Almost Full';
-            } 
+    if ($row) {
+        $petBin = $row['pet_bin'];
+        $glassBin = $row['glass_bin'];
+        $aluminumBin = $row['aluminum_bin'];
+        $lastStatus = $row['isBinFull'];
+        $currentStatus = 'Not Full'; // Default status
 
-            if ($currentStatus !== $lastStatus) {
-                $mail = new PHPMailer(true);
+        if ($petBin >= 95 || $glassBin >= 95 || $aluminumBin >= 95) {
+            $currentStatus = 'Full';
+        } else if ($petBin >= 80 || $glassBin >= 80 || $aluminumBin >= 80) {
+            $currentStatus = 'Almost Full';
+        }
 
-                try {
-                    $mail->isSMTP();                                            //Send using SMTP
-                    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication                                  
+        if ($currentStatus !== $lastStatus) {
+            $mail = new PHPMailer(true);
 
-                    $mail->Host       = 'smtp.gmail.com';                       //Set the SMTP server to send through
-                    $mail->Username   = 'kurt0216@gmail.com';                   //SMTP username
-                    $mail->Password   = 'wmelqvpugzbtuxhg';                     //APP PASSWORD
+            try {
+                $mail->isSMTP();                                            //Send using SMTP
+                $mail->SMTPAuth   = true;                                   //Enable SMTP authentication                                  
 
-                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Enable implicit TLS encryption
-                    $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+                $mail->Host       = 'smtp.gmail.com';                       //Set the SMTP server to send through
+                $mail->Username   = 'kurt0216@gmail.com';                   //SMTP username
+                $mail->Password   = 'wmelqvpugzbtuxhg';                     //APP PASSWORD
 
-                    //Recipients
-                    $mail->setFrom('kurt0216@gmail.com', 'RevendIt'); //Sender
-                    $mail->addAddress('kurt0216@gmail.com', 'user');  //Recipient
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Enable implicit TLS encryption
+                $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
-                    $mail->isHTML(true);
-                    $mail->Subject = 'RevendIt Bin Status Update: ' . $currentStatus;
-                    $mail->Body = "
+                //Recipients
+                $mail->setFrom('kurt0216@gmail.com', 'RevendIt'); //Sender
+                $mail->addAddress('kurt0216@gmail.com', 'user');  //Recipient
+
+                $mail->isHTML(true);
+                $mail->Subject = 'RevendIt Bin Status Update: ' . $currentStatus;
+                $mail->Body = "
                             <h3>RevendIt Bin Status Notification</h3>
                             <p>Dear User,</p>
 
@@ -68,18 +68,16 @@ $getBinsCapacity = mysqli_query($conn, "SELECT pet_bin, glass_bin, aluminum_bin,
                             <p><strong>RevendIt Team</strong></p>
                             ";
 
-                    $mail->send();
-                
-                } catch (Exception $e) {
-                    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-                }
-            } 
-
-            $update_sql = "UPDATE bins_capacity SET isBinFull ='$currentStatus' WHERE date_time='" . $row['date_time'] . "'";
-            mysqli_query($conn, $update_sql);
+                $mail->send();
+            } catch (Exception $e) {
+                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            }
         }
-        
+
+        $update_sql = "UPDATE bins_capacity SET isBinFull ='$currentStatus' WHERE date_time='" . $row['date_time'] . "'";
+        mysqli_query($conn, $update_sql);
     }
+}
 
 $conn->close();
 
@@ -88,15 +86,16 @@ $conn->close();
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thesis Website</title>
 
-    <link rel="stylesheet" href="css/main.css"> 
-    <link rel="stylesheet" href="css/dashboard.css"> 
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/dashboard.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-    
+
 </head>
 
 <body>
@@ -119,14 +118,14 @@ $conn->close();
 
             <a href="create-acc.php" class="nav-icons">
                 <img class="nav-icons-img" src="assets/user-icon.png" alt="">
-                Create User Account
+                Create Account
             </a>
-            
+
             <a href="announcement.php" class="nav-icons">
                 <img class="nav-icons-img" src="assets/announcements-icon.png" alt="">
                 Announcements
             </a>
-            
+
         </div>
     </nav>
 
@@ -144,14 +143,14 @@ $conn->close();
 
         <div class="grid-main">
             <div class="dashboard-today-text">Bin Capacity</div>
-            
+
             <div class="dashboard-div">
                 <div class="dashboard-icon" style="background-color: #1D7031;">
                     <img src="assets/pet-icon.png" alt="">
                 </div>
                 <div class="dashboard-column-order">
                     <p class="material-name">PET Bottles</p>
-                    <p class="total-items-text"> <?php echo $petBin?> % </p>
+                    <p class="total-items-text"> <?php echo $petBin ?> % </p>
                 </div>
             </div>
 
@@ -161,7 +160,7 @@ $conn->close();
                 </div>
                 <div class="dashboard-column-order">
                     <p class="material-name">Glass Bottles</p>
-                    <p class="total-items-text"> <?php echo $glassBin?> % </p>
+                    <p class="total-items-text"> <?php echo $glassBin ?> % </p>
                 </div>
             </div>
 
@@ -171,7 +170,7 @@ $conn->close();
                 </div>
                 <div class="dashboard-column-order">
                     <p class="material-name">Aluminum Cans</p>
-                    <p class="total-items-text"> <?php echo $aluminumBin?> % </p>
+                    <p class="total-items-text"> <?php echo $aluminumBin ?> % </p>
                 </div>
             </div>
 
@@ -179,7 +178,7 @@ $conn->close();
 
 
         <div class="dashboard-charts-div">
-            <div class="chart-date-text">Data Statistics</div>
+            <div class="chart-date-text"></div> <!-- CHART TITLE -->
             <div class="chart-controls">
                 <select id="timePeriod" onchange="changePeriod(this.value)">
                     <option value="week">Week</option>
@@ -187,7 +186,7 @@ $conn->close();
                     <option value="year">Year</option>
                 </select>
             </div>
-            <div class="dashboard-charts">   
+            <div class="dashboard-charts">
                 <canvas id="myBarChart"></canvas>
                 <canvas id="myPieChart"></canvas>
             </div>
@@ -197,4 +196,5 @@ $conn->close();
 
     <script src="js/dashboard-chart.js"></script>
 </body>
+
 </html>
