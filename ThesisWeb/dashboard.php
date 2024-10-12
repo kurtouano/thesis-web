@@ -32,15 +32,15 @@ if ($getBinsCapacity) {
                 $mail->SMTPAuth   = true;                                   //Enable SMTP authentication                                  
 
                 $mail->Host       = 'smtp.gmail.com';                       //Set the SMTP server to send through
-                $mail->Username   = 'kurt0216@gmail.com';                   //SMTP username
-                $mail->Password   = 'wmelqvpugzbtuxhg';                     //APP PASSWORD
+                $mail->Username   = 'revendit.system@gmail.com';            //SMTP username
+                $mail->Password   = 'djuiribxqydjoufd';                     //APP PASSWORD
 
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Enable implicit TLS encryption
                 $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
                 //Recipients
-                $mail->setFrom('kurt0216@gmail.com', 'RevendIt'); //Sender
-                $mail->addAddress('kurt0216@gmail.com', 'user');  //Recipient
+                $mail->setFrom('revendit.system@gmail.com', 'RevendIt');    //Sender
+                $mail->addAddress('kurt0216@gmail.com', 'user');            //Recipient
 
                 $mail->isHTML(true);
                 $mail->Subject = 'RevendIt Bin Status Update: ' . $currentStatus;
