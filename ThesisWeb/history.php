@@ -13,36 +13,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // Prepare the SQL query based on the selected dates
-$recentTransactions = mysqli_query($conn, "SELECT id, email, sector, rfid_uid, material_type, material_quantity, points_earned, timestamp 
+$recentTransactions = mysqli_query($conn, "SELECT id, email, sector, rfid_uid, pet_quantity, aluminum_quantity, glass_quantity, points_earned, timestamp 
     FROM transaction_records 
     WHERE DATE(timestamp) BETWEEN '$fromDate' AND '$toDate' 
     ORDER BY id DESC");
 
 // Get total materials
-$getTotalMaterials = mysqli_query($conn, "SELECT material_type, SUM(material_quantity) AS total_quantity 
-    FROM transaction_records
-    WHERE DATE(timestamp) BETWEEN '$fromDate' AND '$toDate' 
-    GROUP BY material_type"); 
+$totalMaterials = mysqli_query($conn, "
+    SELECT 
+        SUM(pet_quantity) AS total_plastic, 
+        SUM(aluminum_quantity) AS total_aluminum, 
+        SUM(glass_quantity) AS total_glass 
+    FROM transaction_records 
+    WHERE DATE(timestamp) BETWEEN '$fromDate' AND '$toDate'
+");
 
 $total_plastic = 0;
 $total_glass = 0;
 $total_aluminum = 0;
 
-if ($getTotalMaterials->num_rows > 0) {
-    while ($row = $getTotalMaterials->fetch_assoc()) {
-        if ($row['material_type'] == 'Plastic') {
-            $total_plastic = $row['total_quantity'];
-        } elseif ($row['material_type'] == 'Glass') {
-            $total_glass = $row['total_quantity'];
-        } elseif ($row['material_type'] == 'Aluminum') {
-            $total_aluminum = $row['total_quantity'];
-        }
-    }
+if ($totalMaterials && $row = mysqli_fetch_assoc($totalMaterials)) {
+    $total_plastic = $row['total_plastic'] ?? 0;
+    $total_aluminum = $row['total_aluminum'] ?? 0;
+    $total_glass = $row['total_glass'] ?? 0;
 }
+
 $conn->close();
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -135,51 +132,52 @@ $conn->close();
         </div>
     </div>
 
-
     <div class="recent-transaction-div">
-        <p class="recent-transaction-text">Records</p> <!-- TRANSACTION TEXT -->
+            <p class="recent-transaction-text">Transaction History</p>
 
-        <form method="post" class="date-selection-form">
-            <input type="date" id="from_date" name="from_date" value="<?php echo $fromDate; ?>" required>
-            <p> - </p>
-            <input type="date" id="to_date" name="to_date" value="<?php echo $toDate; ?>" required>
-            
-            <button type="submit">Filter</button>
-        </form>
+            <form method="post" class="date-selection-form">
+                <input type="date" id="from_date" name="from_date" value="<?php echo $fromDate; ?>" required>
+                <p> - </p>
+                <input type="date" id="to_date" name="to_date" value="<?php echo $toDate; ?>" required>
 
-        <div class="recent-transaction-table-div">
-            <table>
-                <tr>
-                    <th>Email</th>
-                    <th>Sector</th>
-                    <th>RFID UID</th>
-                    <th>Material Type</th>
-                    <th>Quantity</th>
-                    <th>Points Earned</th>
-                    <th>Timestamp</th>
-                </tr>
+                <button type="submit">Filter</button>
+            </form>
 
-                <?php
+            <div class="recent-transaction-table-div">
+                <table>
+                    <tr>
+                        <th>Email</th>
+                        <th>Sector</th>
+                        <th>RFID UID</th>
+                        <th>PET Qty</th>
+                        <th>Aluminum Qty</th>
+                        <th>Glass Qty</th>
+                        <th>Points Earned</th>
+                        <th>Timestamp</th>
+                    </tr>
+
+                    <?php
                     if ($recentTransactions->num_rows > 0) {
-                        while($row = $recentTransactions->fetch_assoc()) {
+                        while ($row = $recentTransactions->fetch_assoc()) {
                             echo "<tr>";
                             echo "<td>" . $row['email'] . "</td>";
                             echo "<td>" . $row['sector'] . "</td>";
                             echo "<td>" . $row['rfid_uid'] . "</td>";
-                            echo "<td>" . $row['material_type'] . "</td>";
-                            echo "<td>" . $row['material_quantity'] . "</td>";
+                            echo "<td>" . $row['pet_quantity'] . "</td>";
+                            echo "<td>" . $row['aluminum_quantity'] . "</td>";
+                            echo "<td>" . $row['glass_quantity'] . "</td>";
                             echo "<td>" . $row['points_earned'] . "</td>";
                             echo "<td>" . $row['timestamp'] . "</td>";
                             echo "</tr>";
                         }
                     } else {
-                        echo "<tr><td colspan='7'>No data available</td></tr>";
+                        echo "<tr><td colspan='8'>No data available</td></tr>";
                     }
-                ?>
-            </table>
+                    ?>
+                </table>
+            </div>
+
         </div>
-        
-    </div>
 
     </main>
     
