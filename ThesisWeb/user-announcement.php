@@ -1,9 +1,10 @@
 <?php
 
-    require 'require/dbconf.php'; 
 
-    session_start();
-    $logEmail = $_SESSION['logEmail'] ?? ''; 
+require 'require/dbconf.php'; 
+
+session_start();
+$logEmail = $_SESSION['logEmail'] ?? '';
 
     $sql = "SELECT announce_title, announce_body, announce_sched_start, announce_sched_end, DATE_FORMAT(announce_sched_start, '%M %d, %Y') AS timestamp FROM announcements ORDER BY announce_sched_start DESC";
     $result = $conn->query($sql);
@@ -12,10 +13,12 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thesis Website</title>
+
 
     <link rel="stylesheet" href="css/main.css"> 
     <link rel="stylesheet" href="css/dashboard.css">
@@ -34,16 +37,17 @@
                 <img class="nav-icons-img" src="assets/bins-icon.png" alt="">
                 Dashboard
             </a>
-            
+
             <a href="user-announcement.php" class="nav-icons active">
                 <img class="nav-icons-img" src="assets/announcements-icon.png" alt="">
                 Announcements
             </a>
-            
+
         </div>
     </nav>
 
     <main>
+
 
     <div class="top-nav">
         <p class="top-nav-title">Announcements</p>
@@ -53,7 +57,6 @@
                 <img src="assets/user-icon2.png" alt="">
             </button>
         </div>
-    </div>
 
     <div class="announcement-grid">
         <p class="announcement-latest-text">Latest Announcements</p>

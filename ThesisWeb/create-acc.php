@@ -229,7 +229,6 @@ $conn->close();
         unset($_SESSION['success_message_option']);
         unset($_SESSION['success_message']);
         ?>
-
     </script>
 
 </body>
