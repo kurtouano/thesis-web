@@ -55,7 +55,7 @@
 
         <div class="announcement-grid">
             <p class="announcement-latest-text">Latest</p>
-            <button class="announcement-add">Add Announcement +</button>
+            <button class="announcement-add">Add Announcement</button>
             <button class="announcement-delete">Delete</button>
 
             <div class="announcement-div">

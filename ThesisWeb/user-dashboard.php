@@ -1,52 +1,52 @@
 <?php
-    require 'require/dbconf.php';
+require 'require/dbconf.php';
 
-    session_start();
+session_start();
 
-    $loginSuccess = $_SESSION['loginSuccess'] ?? ''; 
-    $logEmail = $_SESSION['logEmail'] ?? ''; 
+$loginSuccess = $_SESSION['loginSuccess'] ?? '';
+$logEmail = $_SESSION['logEmail'] ?? '';
 
-    $fromDate = date('Y-m-d');
-    $toDate = date('Y-m-d');
+$fromDate = date('Y-m-d');
+$toDate = date('Y-m-d');
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $fromDate = $_POST['from_date'];
-        $toDate = $_POST['to_date'];
-    }
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $fromDate = $_POST['from_date'];
+    $toDate = $_POST['to_date'];
+}
 
-    $recentTransactions = mysqli_query($conn, "SELECT id, pet_quantity, aluminum_quantity, glass_quantity, points_earned, timestamp
+$recentTransactions = mysqli_query($conn, "SELECT id, pet_quantity, aluminum_quantity, glass_quantity, points_earned, timestamp
         FROM transaction_records 
         WHERE email = '$logEmail' AND DATE(timestamp) 
         BETWEEN '$fromDate' AND '$toDate' 
         ORDER BY id DESC");
 
-    $totalMaterials = mysqli_query($conn, "
+$totalMaterials = mysqli_query($conn, "
     SELECT 
         SUM(pet_quantity) AS total_plastic, 
         SUM(aluminum_quantity) AS total_aluminum, 
         SUM(glass_quantity) AS total_glass 
     FROM transaction_records 
-    WHERE email = '$logEmail' AND DATE(timestamp) BETWEEN '$fromDate' AND '$toDate'
+    WHERE email = '$logEmail'
     ");
 
-    $getTotalPoints = mysqli_query($conn, "SELECT total_points FROM users_account WHERE acc_email = '$logEmail' ");
+$getTotalPoints = mysqli_query($conn, "SELECT total_points FROM users_account WHERE acc_email = '$logEmail' ");
 
-    if ($getTotalPoints) {
-        $row = mysqli_fetch_assoc($getTotalPoints);
-        $totalPoints = $row['total_points'];
-    }
+if ($getTotalPoints) {
+    $row = mysqli_fetch_assoc($getTotalPoints);
+    $totalPoints = $row['total_points'] ?? 0;
+}
 
-    $total_plastic = 0;
-    $total_glass = 0;
-    $total_aluminum = 0;
+$total_plastic = 0;
+$total_glass = 0;
+$total_aluminum = 0;
 
-    if ($totalMaterials && $row = mysqli_fetch_assoc($totalMaterials)) {
-        $total_plastic = $row['total_plastic'] ?? 0;
-        $total_aluminum = $row['total_aluminum'] ?? 0;
-        $total_glass = $row['total_glass'] ?? 0;
-    }
+if ($totalMaterials && $row = mysqli_fetch_assoc($totalMaterials)) {
+    $total_plastic = $row['total_plastic'] ?? 0;
+    $total_aluminum = $row['total_aluminum'] ?? 0;
+    $total_glass = $row['total_glass'] ?? 0;
+}
 
-    $conn->close();
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -99,7 +99,7 @@
         </div>
 
         <div class="grid-main">
-            <div class="dashboard-today-text"><?php echo date(" F j, Y") . " (" . date("l") . ")"; ?></div>
+            <div class="dashboard-today-text"><?php echo "Total Materials" ?> </div>
 
             <div class="dashboard-div">
                 <div class="dashboard-icon" style="background-color: #1D7031;">
@@ -153,9 +153,9 @@
                 <div class="recent-transaction-table-div">
                     <table>
                         <tr>
-                            <th>PET Qty</th>
-                            <th>Aluminum Qty</th>
-                            <th>Glass Qty</th>
+                            <th>PET Quantity</th>
+                            <th>Aluminum Quantity</th>
+                            <th>Glass Quantity</th>
                             <th>Points Earned</th>
                             <th>Timestamp</th>
                         </tr>
@@ -183,26 +183,25 @@
         </div>
 
     </main>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script> 
+    <script>
         let loginSuccess = <?php echo json_encode($loginSuccess); ?>;
-        
+
         if (loginSuccess != '') {
             if (loginSuccess == 1) {
-            Swal.fire({
-                icon: "success",
-                title: "Signed in successfully",
-                toast: true,
-                position: "top",
-                timer: 2500,
-                timerProgressBar: true,
-                showConfirmButton: false
-            });
-        } 
+                Swal.fire({
+                    icon: "success",
+                    title: "Signed in successfully",
+                    toast: true,
+                    position: "top",
+                    timer: 2500,
+                    timerProgressBar: true,
+                    showConfirmButton: false
+                });
+            }
             <?php unset($_SESSION['loginSuccess']); ?>
         }
-        
     </script>
 
 </body>

@@ -1,54 +1,54 @@
-    .create-acc-form-div {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-    }
-    
-    .create-acc-form {
-        border-radius: 20px;
-        display: flex;
-        flex-direction: column;
+.create-acc-form-div {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
 
-        width: 400px;
-        padding: 40px;
-        box-shadow: 0 0 10px 0 rgba(143, 142, 142, 0.724);
-    }
+.create-acc-form {
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
 
-    .create-acc-form input, select {
-        font-size: 0.9rem;
-        border: 1px solid rgba(143, 142, 142, 0.538);
-        border-radius: 5px;
-        padding: 10px 10px;
-        margin-bottom: 15px;
-    }
+  width: 400px;
+  padding: 40px;
+  box-shadow: 0 0 10px 0 rgba(143, 142, 142, 0.724);
+}
 
-    .create-acc-form input:focus {
-        outline: 1px solid var(--color-green-1);
-        box-shadow: 0 0 5px 0 var(--color-green-1);
+.create-acc-form input,
+select {
+  font-size: 0.9rem;
+  border: 1px solid rgba(143, 142, 142, 0.538);
+  border-radius: 5px;
+  padding: 10px 10px;
+  margin-bottom: 15px;
+}
 
-    }
+.create-acc-form input:focus {
+  outline: 1px solid var(--color-green-1);
+  box-shadow: 0 0 5px 0 var(--color-green-1);
+}
 
-    .create-acc-submit-btn {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+.create-acc-submit-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-        width: 200px;
-        margin-top: 15px;
-        margin-right: auto;
-        margin-left: auto;
-        padding: 10px;
+  width: 200px;
+  margin-top: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 10px;
 
-        color: white;
-        background-color: var(--color-black-1);
-        border: none;
-        border-radius: 20px;
+  color: white;
+  background-color: var(--color-black-1);
+  border: none;
+  border-radius: 20px;
 
-        cursor: pointer;
-    }
+  cursor: pointer;
+}
 
-    #rfidTag {
-        text-transform: uppercase;
-    }
+#rfidTag {
+  text-transform: uppercase;
+}

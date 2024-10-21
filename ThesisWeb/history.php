@@ -43,14 +43,15 @@ $conn->close();
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thesis Website</title>
 
-    <link rel="stylesheet" href="css/main.css"> 
+    <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/dashboard.css">
-    <link rel="stylesheet" href="css/history.css">  
+    <link rel="stylesheet" href="css/history.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 
@@ -76,63 +77,63 @@ $conn->close();
                 <img class="nav-icons-img" src="assets/user-icon.png" alt="">
                 Create Account
             </a>
-            
+
             <a href="announcement.php" class="nav-icons">
                 <img class="nav-icons-img" src="assets/announcements-icon.png" alt="">
                 Announcements
             </a>
-            
+
         </div>
     </nav>
-    
+
     <main>
 
-    <div class="top-nav">
-        <p class="top-nav-title">Transaction History</p>
-        
-        <div class="top-nav-user-div">
-            <p class="top-nav-user-name">Admin</p>
-            <button class="top-nav-user-icon">
-                <img src="assets/user-icon2.png" alt="">
-            </button>
-        </div>
-    </div>
+        <div class="top-nav">
+            <p class="top-nav-title">Transaction History</p>
 
-    <div class="grid-main">
-        <div class="dashboard-today-text"><?php echo date(" F j, Y") . " (" . date("l") . ")";  ?></div>
-
-        <div class="dashboard-div">
-            <div class="dashboard-icon" style="background-color: #1D7031;">
-                <img src="assets/pet-icon.png" alt="">
-            </div>
-            <div class="dashboard-column-order">
-                <p class="material-name">PET Bottles</p>
-                <p class="total-items-text"> <?php echo $total_plastic ?> </p>
+            <div class="top-nav-user-div">
+                <p class="top-nav-user-name">Admin</p>
+                <button class="top-nav-user-icon">
+                    <img src="assets/user-icon2.png" alt="">
+                </button>
             </div>
         </div>
 
-        <div class="dashboard-div">
-            <div class="dashboard-icon" style="background-color: #3ABF5D;">
-                <img src="assets/glass-icon.png" alt="">
+        <div class="grid-main">
+            <div class="dashboard-today-text"><?php echo date(" F j, Y") . " (" . date("l") . ")";  ?></div>
+
+            <div class="dashboard-div">
+                <div class="dashboard-icon" style="background-color: #1D7031;">
+                    <img src="assets/pet-icon.png" alt="">
+                </div>
+                <div class="dashboard-column-order">
+                    <p class="material-name">PET Bottles</p>
+                    <p class="total-items-text"> <?php echo $total_plastic ?> </p>
+                </div>
             </div>
-            <div class="dashboard-column-order">
-                <p class="material-name">Glass Bottles</p>
-                <p class="total-items-text"> <?php echo $total_glass ?> </p>
+
+            <div class="dashboard-div">
+                <div class="dashboard-icon" style="background-color: #3ABF5D;">
+                    <img src="assets/glass-icon.png" alt="">
+                </div>
+                <div class="dashboard-column-order">
+                    <p class="material-name">Glass Bottles</p>
+                    <p class="total-items-text"> <?php echo $total_glass ?> </p>
+                </div>
+            </div>
+
+            <div class="dashboard-div">
+                <div class="dashboard-icon" style="background-color: #93cb8b;">
+                    <img src="assets/can-icon.png" alt="">
+                </div>
+                <div class="dashboard-column-order">
+                    <p class="material-name">Aluminum Cans</p>
+                    <p class="total-items-text"> <?php echo $total_aluminum ?> </p>
+                </div>
             </div>
         </div>
 
-        <div class="dashboard-div">
-            <div class="dashboard-icon" style="background-color: #93cb8b;">
-                <img src="assets/can-icon.png" alt="">
-            </div>
-            <div class="dashboard-column-order">
-                <p class="material-name">Aluminum Cans</p>
-                <p class="total-items-text"> <?php echo $total_aluminum ?> </p>
-            </div>
-        </div>
-    </div>
-
-    <div class="recent-transaction-div">
+        <div class="recent-transaction-div">
             <p class="recent-transaction-text">Transaction History</p>
 
             <form method="post" class="date-selection-form">
@@ -180,6 +181,7 @@ $conn->close();
         </div>
 
     </main>
-    
+
 </body>
+
 </html>
