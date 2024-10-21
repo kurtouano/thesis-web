@@ -6,11 +6,11 @@
 }
 
 .announcement-latest-text {
-  position: absolute;
-  top: -30px;
-  background-color: var(--color-green-1);
-  padding: 5px 20px;
-  color: white;
+    position: absolute;
+    top: -30px;
+    background-color: var(--color-green-1);
+    padding: 5px 20px;
+    color: white;
 }
 
 .announcement-add {
@@ -64,5 +64,67 @@
 }
 
 .announcement-spacing-bottom {
-  height: 40px;
+
+  
+
+    height: 40px;
+}
+
+
+.modal {
+    display: none; 
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; 
+    background-color: rgba(0, 0, 0, 0.4);
+    overflow: auto;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+}
+
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    max-width: 600px; 
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
+    margin: 0 auto; 
+}
+
+
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#announcementForm label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#announcementForm input, #announcementForm textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+
 }
