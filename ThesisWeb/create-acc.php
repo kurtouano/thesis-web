@@ -141,7 +141,7 @@ $conn->close();
 
             <a href="History.php" class="nav-icons">
                 <img class="nav-icons-img" src="assets/bins-icon.png" alt="">
-                Transaction History
+                Transactions
             </a>
 
             <a href="create-acc.php" class="nav-icons active">
@@ -153,6 +153,13 @@ $conn->close();
                 <img class="nav-icons-img" src="assets/announcements-icon.png" alt="">
                 Announcements
             </a>
+
+            <button class="nav-icons logout-btn">
+                <img class="nav-icons-img" src="assets/logout-icon.png" alt="">
+                Logout
+            </button>
+
+            <p class=footer>&copy; Omnia Revendit 2024</p>
 
         </div>
     </nav>

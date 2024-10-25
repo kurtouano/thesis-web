@@ -54,18 +54,18 @@ $conn->close();
         <div class="login-column-order">
             <img src="assets/main-logo-dark.png" alt="">
             <form class="login-form" action="<?php echo htmlspecialchars(string: $_SERVER["PHP_SELF"]); ?>" method="post">
-                <p class="form-title">Login</p>
+                <p class="form-title">Log in</p>
 
                 <label for="logEmail"></label>
                 <input type="email" name="logEmail" id="logEmail" placeholder="Email address" required>
 
                 <label for="logPassword"></label>
                 <input type="password" name="logPassword" id="logPassword" placeholder="Password" required>
-
+                
                 <button class="login-submit-btn" type="submit" name="login-submit">Sign in</button>
             </form>
 
-            <button class="login-forgot-pass" style="display: none;" onclick="forgetPass();">Forgot Password</a>
+            <button class="login-forgot-pass" onclick="forgetPass();">Forgot password?</a>
         </div>
     </div>
 
@@ -73,8 +73,8 @@ $conn->close();
     <script>
         let successNotif = <?php echo $loginSuccess ?? ''; ?>
 
-        if (successNotif != '') {
-            const Toast = Swal.mixin({
+            if (successNotif != '') {
+                const Toast = Swal.mixin({
                 toast: true,
                 position: "top",
                 showConfirmButton: false,

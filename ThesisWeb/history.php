@@ -70,7 +70,7 @@ $conn->close();
 
             <a href="history.php" class="nav-icons active">
                 <img class="nav-icons-img" src="assets/bins-icon.png" alt="">
-                Transaction History
+                Transactions
             </a>
 
             <a href="create-acc.php" class="nav-icons">
@@ -83,13 +83,20 @@ $conn->close();
                 Announcements
             </a>
 
+            <button class="nav-icons logout-btn">
+                <img class="nav-icons-img" src="assets/logout-icon.png" alt="">
+                Logout
+            </button>
+
+            <p class=footer>&copy; Omnia Revendit 2024</p>
+
         </div>
     </nav>
 
     <main>
 
         <div class="top-nav">
-            <p class="top-nav-title">Transaction History</p>
+            <p class="top-nav-title">Transactions</p>
 
             <div class="top-nav-user-div">
                 <p class="top-nav-user-name">Admin</p>
@@ -134,7 +141,7 @@ $conn->close();
         </div>
 
         <div class="recent-transaction-div">
-            <p class="recent-transaction-text">History</p>
+            <p class="recent-transaction-text">Transaction History</p>
 
             <form method="post" class="date-selection-form">
                 <input type="date" id="from_date" name="from_date" value="<?php echo $fromDate; ?>" required>

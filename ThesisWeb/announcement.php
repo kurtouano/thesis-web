@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </a>
             <a href="history.php" class="nav-icons">
                 <img class="nav-icons-img" src="assets/bins-icon.png" alt="">
-                Transaction History
+                Transactions
             </a>
             <a href="create-acc.php" class="nav-icons">
                 <img class="nav-icons-img" src="assets/user-icon.png" alt="">
@@ -81,8 +81,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 Announcements
             </a>
 
-            <button class="logout-btn">Logout</button>
+            <button class="nav-icons logout-btn">
+                <img class="nav-icons-img" src="assets/logout-icon.png" alt="">
+                Logout
+            </button>
+
+            <p class=footer>&copy; Omnia Revendit 2024</p>
         </div>
+
+
     </nav>
 
     <main>
@@ -97,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
 
         <div class="announcement-grid">
-            <p class="announcement-latest-text">Latest Announcements</p>
+            <p class="announcement-latest-text">Latest</p>
             <button class="announcement-add">Add Announcement</button>
             <button class="announcement-delete" id="toggle-delete">Delete</button>
 

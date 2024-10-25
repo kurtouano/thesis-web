@@ -1,10 +1,7 @@
 <?php
 
-
 require 'require/dbconf.php';
-
-session_start();
-$logEmail = $_SESSION['logEmail'] ?? '';
+require 'require/login-require.php';
 
 $sql = "SELECT id, announce_title, announce_body, 
         DATE_FORMAT(announce_sched_start, '%M %d, %Y %l:%i %p') AS formatted_sched_start, 
@@ -28,6 +25,7 @@ $result = $conn->query($sql);
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/announcement.css">
+
 </head>
 
 <body>
@@ -47,6 +45,13 @@ $result = $conn->query($sql);
                 <img class="nav-icons-img" src="assets/announcements-icon.png" alt="">
                 Announcements
             </a>
+
+            <button class="nav-icons logout-btn" id="logoutBtn">
+                <img class="nav-icons-img" src="assets/logout-icon.png" alt="">
+                Logout
+            </button>
+
+            <p class=footer>&copy; Omnia Revendit 2024</p>
 
         </div>
     </nav>
@@ -92,6 +97,7 @@ $result = $conn->query($sql);
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/logout-listener.js"></script>
 
 </body>
 

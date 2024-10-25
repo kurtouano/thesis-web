@@ -2,14 +2,14 @@
   display: grid;
   grid-template-columns: 1fr;
   position: relative;
-  margin-top: 10px;
+  border-top: none;
 }
 
 .announcement-latest-text {
   position: absolute;
-  top: -30px;
+  top: -25px;
   background-color: var(--color-green-1);
-  padding: 5px 25px;
+  padding: 3px 35px;
   color: white;
   font-size: 1rem;
   font-weight: normal;
@@ -20,16 +20,16 @@
   font-size: 0.8rem;
   
   position: absolute;
-  top: -30px;
-  padding: 8px 15px;
+  top: -25px;
+  padding: 6px 15px;
   color: white;
   cursor: pointer;
   border: none;
 }
 
 .announcement-add {
-  right: 80px;
-  background-color: var(--color-black-1);
+  right: 66px;
+  background-color: var(--color-green-1);
 }
 
 .announcement-delete {
@@ -44,9 +44,9 @@
   right: 20px; 
   font-size: .8rem;
   padding: 4px 8px;
-  background-color: var(--color-red-1);
-  color: white;
+  background-color: #e03a2bd6;
   border: none;
+  color: white;
 
   cursor: pointer;
 }
@@ -55,24 +55,25 @@
   text-wrap: wrap;
   position: relative;
   padding: 20px 30px;
-  box-shadow: 0px 2px 4px 0 rgba(175, 175, 175, 0.724);
+  box-shadow: 0px 2px 5px 0 rgba(175, 175, 175, 0.724);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-radius: 5px;
+  border-radius: 10px;
+  margin-bottom: 5px;
 }
 
 .announcement-title {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: bold;
-  margin-bottom: 25px;
+  margin-bottom: 15px;
 }
 
 .announcement-timestamp {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: normal;
   color: var(--color-text-gray);
 }

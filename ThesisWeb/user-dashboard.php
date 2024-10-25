@@ -1,10 +1,6 @@
 <?php
 require 'require/dbconf.php';
-
-session_start();
-
-$loginSuccess = $_SESSION['loginSuccess'] ?? '';
-$logEmail = $_SESSION['logEmail'] ?? '';
+require 'require/login-require.php';
 
 $fromDate = date('Y-m-d');
 $toDate = date('Y-m-d');
@@ -64,6 +60,7 @@ $conn->close();
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     
+    
 </head>
 
 <body>
@@ -84,6 +81,12 @@ $conn->close();
                 Announcements
             </a>
 
+            <button class="nav-icons logout-btn" id="logoutBtn">
+                <img class="nav-icons-img" src="assets/logout-icon.png" alt="">
+                Logout
+            </button>
+
+            <p class=footer>&copy; Omnia Revendit 2024</p>
         </div>
     </nav>
 
@@ -93,9 +96,9 @@ $conn->close();
             <p class="top-nav-title">Dashboard</p>
             <div class="top-nav-user-div">
                 <p class="top-nav-user-name"><?= $logEmail ?></p>
-                <a href="login.php" class="top-nav-user-icon">
+                <button class="top-nav-user-icon">
                     <img src="assets/user-icon2.png" alt="">
-                </a>
+                </button>
             </div>
         </div>
 
@@ -186,6 +189,7 @@ $conn->close();
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/logout-listener.js"></script>
     <script>
         let loginSuccess = <?php echo json_encode($loginSuccess); ?>;
 
