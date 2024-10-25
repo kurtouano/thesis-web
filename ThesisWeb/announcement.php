@@ -80,6 +80,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <img class="nav-icons-img" src="assets/announcements-icon.png" alt="">
                 Announcements
             </a>
+
+            <button class="logout-btn">Logout</button>
         </div>
     </nav>
 

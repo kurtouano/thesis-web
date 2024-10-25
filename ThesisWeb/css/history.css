@@ -41,7 +41,7 @@
 
 .date-selection-form {
   position: absolute;
-  width: 350px;
+  width: 370px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -50,17 +50,19 @@
   top: -35px;
   right: 10px;
   color: black;
-  font-size: 1rem;
 }
 
 .date-selection-form input {
   font-family: Roboto;
+  font-size: 0.9rem;
 }
 
 .date-selection-form button {
-  padding: 2.5px 15px;
+  font-size: 0.9rem;
+  padding: 3px 18px;
   background-color: var(--color-green-1);
   border: none;
   color: white;
-  border-radius: 10px;
+  border-radius: 8px;
+  cursor: pointer;
 }

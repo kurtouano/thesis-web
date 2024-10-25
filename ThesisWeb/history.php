@@ -100,7 +100,7 @@ $conn->close();
         </div>
 
         <div class="grid-main">
-            <div class="dashboard-today-text"><?php echo date(" F j, Y") . " (" . date("l") . ")";  ?></div>
+            <div class="dashboard-today-text">Total Materials</div>
 
             <div class="dashboard-div">
                 <div class="dashboard-icon" style="background-color: #1D7031;">
@@ -134,7 +134,7 @@ $conn->close();
         </div>
 
         <div class="recent-transaction-div">
-            <p class="recent-transaction-text">Transaction History</p>
+            <p class="recent-transaction-text">History</p>
 
             <form method="post" class="date-selection-form">
                 <input type="date" id="from_date" name="from_date" value="<?php echo $fromDate; ?>" required>

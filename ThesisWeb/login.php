@@ -57,7 +57,7 @@ $conn->close();
                 <p class="form-title">Login</p>
 
                 <label for="logEmail"></label>
-                <input type="email" name="logEmail" id="logEmail" placeholder="Email" required>
+                <input type="email" name="logEmail" id="logEmail" placeholder="Email address" required>
 
                 <label for="logPassword"></label>
                 <input type="password" name="logPassword" id="logPassword" placeholder="Password" required>
