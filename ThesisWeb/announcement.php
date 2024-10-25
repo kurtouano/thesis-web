@@ -104,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
 
         <div class="announcement-grid">
-            <p class="announcement-latest-text">Latest</p>
+            <p class="announcement-latest-text">Latest Announcements</p>
             <button class="announcement-add">Add Announcement</button>
             <button class="announcement-delete" id="toggle-delete">Delete</button>
 
@@ -123,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         echo '</div>';
                     }
                 } else {
-                    echo '<p>No announcements available.</p>';
+                    echo '<br><p> No announcements available.</p>';
                 }
 
                 ?>

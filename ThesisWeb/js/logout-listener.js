@@ -11,7 +11,7 @@ document.getElementById("logoutBtn").addEventListener("click", function (event) 
     }).then((result) => {
         if (result.isConfirmed) {
             // Clear session variables by sending a logout request
-            fetch("logout-clear.php", {
+            fetch("/ThesisWeb/require/logout-clear.php", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded"

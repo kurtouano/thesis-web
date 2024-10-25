@@ -88,7 +88,7 @@ $result = $conn->query($sql);
                         echo '</div>';
                     }
                 } else {
-                    echo '<p>No announcements available.</p>';
+                    echo '<br><p>No announcements available.</p>';
                 }
                 ?>
             </div>

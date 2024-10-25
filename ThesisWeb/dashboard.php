@@ -142,9 +142,9 @@ $conn->close();
             <p class="top-nav-title">Dashboard</p>
             <div class="top-nav-user-div">
                 <p class="top-nav-user-name">Admin</p>
-                <a href="login.php" class="top-nav-user-icon">
+                <button class="top-nav-user-icon">
                     <img src="assets/user-icon2.png" alt="">
-                </a>
+                </button>
             </div>
         </div>
 

@@ -1,7 +1,8 @@
 <?php
 
 require 'require/dbconf.php';
-
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 session_start();
 
 if (isset($_POST['login-submit'])) {
@@ -53,7 +54,7 @@ $conn->close();
     <div class="login-content-div">
         <div class="login-column-order">
             <img src="assets/main-logo-dark.png" alt="">
-            <form class="login-form" action="<?php echo htmlspecialchars(string: $_SERVER["PHP_SELF"]); ?>" method="post">
+            <form class="login-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                 <p class="form-title">Log in</p>
 
                 <label for="logEmail"></label>
@@ -61,7 +62,7 @@ $conn->close();
 
                 <label for="logPassword"></label>
                 <input type="password" name="logPassword" id="logPassword" placeholder="Password" required>
-                
+
                 <button class="login-submit-btn" type="submit" name="login-submit">Sign in</button>
             </form>
 
@@ -71,10 +72,10 @@ $conn->close();
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        let successNotif = <?php echo $loginSuccess ?? ''; ?>
+        let successNotif = <?php echo json_encode($loginSuccess ?? ''); ?>;
 
-            if (successNotif != '') {
-                const Toast = Swal.mixin({
+        if (successNotif != '') {
+            const Toast = Swal.mixin({
                 toast: true,
                 position: "top",
                 showConfirmButton: false,
@@ -95,28 +96,55 @@ $conn->close();
         }
 
         function forgetPass() {
-            Swal.mixin({
-                toast: true,
-                position: "right",
-            });
             Swal.fire({
                 title: "Enter your email address",
                 input: "email",
                 inputPlaceholder: "Enter your email",
                 showConfirmButton: true,
                 showCancelButton: true,
-
                 confirmButtonText: "Submit",
-
                 inputValidator: (value) => {
                     if (!value) {
                         return 'You need to write an email!';
                     }
                 }
-
             }).then((result) => {
                 if (result.isConfirmed) {
-                    let forgetPassEmail = result.value;
+                    const forgetPassEmail = result.value;
+
+                    fetch('/ThesisWeb/require/forgotpass.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                email: forgetPassEmail
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Reset link sent!',
+                                    text: data.message,
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: data.message,
+                                });
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Fetch error:', error); // Log the error for debugging
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Unable to send reset link at this time.',
+                            });
+                        });
                 }
             });
         }

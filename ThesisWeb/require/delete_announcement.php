@@ -1,5 +1,5 @@
 <?php
-require '../require/dbconf.php'; // Ensure the correct path to your dbconf.php
+require 'dbconf.php'; // Ensure the correct path to your dbconf.php
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get the ID from the POST data
