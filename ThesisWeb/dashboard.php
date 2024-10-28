@@ -5,6 +5,7 @@ use PHPMailer\PHPMailer\Exception;
 
 require 'vendor/autoload.php';
 require 'require/dbconf.php';
+require 'require/login-require.php';
 
 $getBinsCapacity = mysqli_query($conn, "SELECT pet_bin, glass_bin, aluminum_bin, isBinFull, date_time FROM bins_capacity ORDER BY date_time DESC LIMIT 1");
 
@@ -107,28 +108,38 @@ $conn->close();
         <div class="nav-icons-div">
 
             <a href="dashboard.php" class="nav-icons active">
-                <img class="nav-icons-img" src="assets/dashboards-icon.png" alt="">
-                Dashboard
+                <div class="nav-icons-content">
+                    <img class="nav-icons-img" src="assets/dashboards-icon.png" alt="">
+                    Dashboard
+                </div>
             </a>
 
             <a href="history.php" class="nav-icons">
-                <img class="nav-icons-img" src="assets/bins-icon.png" alt="">
-                Transactions
+                <div class="nav-icons-content">
+                    <img class="nav-icons-img" src="assets/bins-icon.png" alt="">
+                    Transactions
+                </div>
             </a>
 
             <a href="create-acc.php" class="nav-icons">
-                <img class="nav-icons-img" src="assets/user-icon.png" alt="">
-                Create Account
+                <div class="nav-icons-content">
+                    <img class="nav-icons-img" src="assets/user-icon.png" alt="">
+                    Create Account
+                </div>
             </a>
 
             <a href="announcement.php" class="nav-icons">
-                <img class="nav-icons-img" src="assets/announcements-icon.png" alt="">
-                Announcements
+                <div class="nav-icons-content">
+                    <img class="nav-icons-img" src="assets/announcements-icon.png" alt="">
+                    Announcements
+                </div>
             </a>
 
-            <button class="nav-icons logout-btn">
-                <img class="nav-icons-img" src="assets/logout-icon.png" alt="">
-                Logout
+            <button class="nav-icons logout-btn" id="logoutBtn">
+                <div class="nav-icons-content">
+                    <img class="nav-icons-img" src="assets/logout-icon.png" alt="">
+                    Logout
+                </div>
             </button>
 
             <p class=footer>&copy; Omnia Revendit 2024</p>
@@ -203,7 +214,29 @@ $conn->close();
 
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/logout-listener.js"></script>
     <script src="js/dashboard-chart.js"></script>
+
+    <script>
+        let loginSuccess = <?php echo json_encode($loginSuccess); ?>;
+
+        if (loginSuccess != '') {
+            if (loginSuccess == 1) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Signed in successfully",
+                    toast: true,
+                    position: "top",
+                    timer: 2500,
+                    timerProgressBar: true,
+                    showConfirmButton: false
+                });
+            }
+            <?php unset($_SESSION['loginSuccess']); ?>
+        }
+    </script>
+
 </body>
 
 </html>

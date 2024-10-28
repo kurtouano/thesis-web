@@ -1,15 +1,14 @@
 <?php
 
 require 'require/dbconf.php';
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+
 session_start();
 
 if (isset($_POST['login-submit'])) {
     $_SESSION['logEmail']  = $_POST['logEmail'];
     $logPass = $_POST['logPassword'];
 
-    $verifyPass = $conn->prepare("SELECT acc_pass FROM users_account WHERE acc_email = ?");
+    $verifyPass = $conn->prepare("SELECT acc_pass, is_admin FROM users_account WHERE acc_email = ?");
     $verifyPass->bind_param("s", $_SESSION['logEmail']);
     $verifyPass->execute();
     $verifyPassResult = $verifyPass->get_result();
@@ -17,22 +16,33 @@ if (isset($_POST['login-submit'])) {
     if ($verifyPassResult->num_rows > 0) {
         $user = $verifyPassResult->fetch_assoc();
         $hashedPassword = $user['acc_pass'];
+        $isAdmin = $user['is_admin'];
 
         if (password_verify($logPass, $hashedPassword)) {
-            $_SESSION['loginSuccess'] = 1;
-            header("Location: user-dashboard.php");
-            exit();
+            session_regenerate_id(true);
+            if ($isAdmin == 1) {
+                $_SESSION['isAdmin'] = $isAdmin;
+                $_SESSION['adminEmail'] = $_SESSION['logEmail'];
+                header("Location: dashboard.php");
+                exit();
+            } else {
+                $_SESSION['loginSuccess'] = 1;
+                header("Location: user-dashboard.php");
+                exit();
+            }
         } else {
             $_SESSION['loginSuccess'] = 2;
         }
-    } else {
+    } else {    
         $_SESSION['loginSuccess'] = 3;
     }
 
-    $loginSuccess = $_SESSION['loginSuccess'];
-    unset($_SESSION['loginSuccess']);
+    $loginSuccess = $_SESSION['loginSuccess'] ?? ''; // Retrieve the value if it exists
+    unset($_SESSION['loginSuccess']); 
+    
 }
 
+session_destroy();
 $conn->close();
 ?>
 
@@ -72,8 +82,9 @@ $conn->close();
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        
         let successNotif = <?php echo json_encode($loginSuccess ?? ''); ?>;
-
+       
         if (successNotif != '') {
             const Toast = Swal.mixin({
                 toast: true,
@@ -93,6 +104,8 @@ $conn->close();
                     title: "No Account Found with That Email Address"
                 });
             }
+            <?php $loginSuccess = '' ?>;
+
         }
 
         function forgetPass() {

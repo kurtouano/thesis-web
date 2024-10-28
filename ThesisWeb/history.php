@@ -1,5 +1,7 @@
 <?php
+
 require 'require/dbconf.php';
+require 'require/login-require.php';
 
 // Set default dates to today
 $fromDate = date('Y-m-d');
@@ -64,28 +66,38 @@ $conn->close();
         <div class="nav-icons-div">
 
             <a href="dashboard.php" class="nav-icons">
-                <img class="nav-icons-img" src="assets/dashboards-icon.png" alt="">
-                Dashboard
+                <div class="nav-icons-content">
+                    <img class="nav-icons-img" src="assets/dashboards-icon.png" alt="">
+                    Dashboard
+                </div>
             </a>
 
             <a href="history.php" class="nav-icons active">
-                <img class="nav-icons-img" src="assets/bins-icon.png" alt="">
-                Transactions
+                <div class="nav-icons-content">
+                    <img class="nav-icons-img" src="assets/bins-icon.png" alt="">
+                    Transactions
+                </div>
             </a>
 
             <a href="create-acc.php" class="nav-icons">
-                <img class="nav-icons-img" src="assets/user-icon.png" alt="">
-                Create Account
+                <div class="nav-icons-content">
+                    <img class="nav-icons-img" src="assets/user-icon.png" alt="">
+                    Create Account
+                </div>
             </a>
 
             <a href="announcement.php" class="nav-icons">
-                <img class="nav-icons-img" src="assets/announcements-icon.png" alt="">
-                Announcements
+                <div class="nav-icons-content">
+                    <img class="nav-icons-img" src="assets/announcements-icon.png" alt="">
+                    Announcements
+                </div>
             </a>
 
-            <button class="nav-icons logout-btn">
-                <img class="nav-icons-img" src="assets/logout-icon.png" alt="">
-                Logout
+            <button class="nav-icons logout-btn" id="logoutBtn">
+                <div class="nav-icons-content">
+                    <img class="nav-icons-img" src="assets/logout-icon.png" alt="">
+                    Logout
+                </div>
             </button>
 
             <p class=footer>&copy; Omnia Revendit 2024</p>
@@ -107,7 +119,7 @@ $conn->close();
         </div>
 
         <div class="grid-main">
-            <div class="dashboard-today-text">Total Materials</div>
+            <div class="dashboard-today-text">Total Materials (<?php echo date('F j, Y'); ?>)</div>
 
             <div class="dashboard-div">
                 <div class="dashboard-icon" style="background-color: #1D7031;">
@@ -188,6 +200,9 @@ $conn->close();
         </div>
 
     </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/logout-listener.js"></script>
 
 </body>
 

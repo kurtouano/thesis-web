@@ -59,8 +59,8 @@ $conn->close();
     <link rel="stylesheet" href="css/user-dashboard.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-    
-    
+
+
 </head>
 
 <body>
@@ -72,18 +72,24 @@ $conn->close();
         <div class="nav-icons-div">
 
             <a href="user-dashboard.php" class="nav-icons active">
-                <img class="nav-icons-img" src="assets/bins-icon.png" alt="">
-                Dashboard
+                <div class="nav-icons-content">
+                    <img class="nav-icons-img" src="assets/bins-icon.png" alt="">
+                    Dashboard
+                </div>
             </a>
 
             <a href="user-announcement.php" class="nav-icons">
-                <img class="nav-icons-img" src="assets/announcements-icon.png" alt="">
-                Announcements
+                <div class="nav-icons-content">
+                    <img class="nav-icons-img" src="assets/announcements-icon.png" alt="">
+                    Announcements
+                </div>
             </a>
 
             <button class="nav-icons logout-btn" id="logoutBtn">
-                <img class="nav-icons-img" src="assets/logout-icon.png" alt="">
-                Logout
+                <div class="nav-icons-content">
+                    <img class="nav-icons-img" src="assets/logout-icon.png" alt="">
+                    Logout
+                </div>
             </button>
 
             <p class=footer>&copy; Omnia Revendit 2024</p>
@@ -190,6 +196,7 @@ $conn->close();
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/logout-listener.js"></script>
+
     <script>
         let loginSuccess = <?php echo json_encode($loginSuccess); ?>;
 

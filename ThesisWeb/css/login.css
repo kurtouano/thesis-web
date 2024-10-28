@@ -1,6 +1,6 @@
 .login-bg-img {
   height: 100vh;
-  background-image: url(../assets/login-bg.jpg);
+  background-image: url(../assets/login-bg2.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 0 40%;
@@ -8,7 +8,7 @@
 }
 
 .login-content-div {
-  height: 530px;
+  height: 510px;
   position: relative;
   width: 100%;
   display: flex;
@@ -27,7 +27,7 @@
 }
 
 .login-column-order img {
-  width: 250px;
+  width: 230px;
   margin-bottom: 20px;
 }
 
@@ -35,19 +35,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 360px;
-  width: 300px;
+  height: 380px;
+  width: 330px;
   padding: 2% 0 0 0;
   border-radius: 20px;
-  background-color: rgba(0, 0, 0, 0.826);
-  padding: 30px;
+  background-color: rgba(0, 0, 0, 0.779);
+  padding: 20px;
   color: white;
 }
 
 .login-form .form-title {
   font-size: 1.1rem;
   font-weight: bold;
-  padding: 0 0 50px 0;
+  padding: 15px 0 50px 0;
 }
 
 .login-form input {
@@ -60,7 +60,7 @@
 }
 
 .login-forgot-pass {
-  bottom: 150px;
+  bottom: 110px;
   position: absolute;
   font-size: 0.9rem;
   color: white;
@@ -71,9 +71,9 @@
 
 .login-submit-btn {
   font-size: 0.9rem;
-  margin: 80px 0 0 0;
+  margin: 50px 0 0 0;
   padding: 10px;
-  width: 55%;
+  width: 82%;
 
   background-color: var(--color-green-1);
   border-radius: 20px;
@@ -83,11 +83,4 @@
   font-family: Roboto;
 
   cursor: pointer;
-}
-
-.swal2-confirm {
-  order: 2;
-}
-.swal2-cancel {
-  order: 1;
 }

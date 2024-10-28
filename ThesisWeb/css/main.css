@@ -3,6 +3,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 :root {
@@ -28,7 +29,6 @@
 }
 
 body {
-  box-sizing: border-box;
   display: flex;
   flex-direction: row;
 }
@@ -51,7 +51,8 @@ body {
 }
 
 .nav-logo-img {
-  width: 160px;
+  width: 180px;
+  margin-bottom: 20px;
 }
 
 .nav-icons-div {
@@ -59,33 +60,37 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  row-gap: 18px;
-  padding: 5% 5%;
+  row-gap: 15px;
 }
 
 .nav-icons {
+  font-weight: 400;
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: white;
+}
+
+.nav-icons-content {
   display: flex;
   flex-direction: row;
   align-items: center;
-  font-size: 0.9rem;
-  padding: 3% 5%;
-  border-radius: 5px;
+  padding: 3.5% 10%;
 
-  text-decoration: none;
-  color: white;
-  transition: color 0.15s;
-
-  transition: all 0.2s;
+  transition: 0.2s ease-in-out;
 }
 
 .nav-icons-div .active {
   background-color: var(--color-green-1);
 }
 
+.nav-icons-content:hover{
+  transform: translateX(10px);
+}
+
 .nav-icons-img {
-  width: 25px;
-  height: 25px;
-  padding-right: 7%;
+  width: 22px;
+  height: 22px;
+  margin-right: 15px;
 }
 
 .logout-btn {
@@ -98,6 +103,7 @@ body {
 .footer {
   position: absolute;
   bottom: 15px;
+  left: 5%;
   font-size: 0.8rem;
   color: white;
 }
@@ -120,7 +126,7 @@ main {
 .top-nav-title {
   color: var(--color-black-1);
   font-size: 1.5rem;
-  font-weight: bold;
+  font-weight: 600;
 }
 
 .top-nav-user-div {
@@ -131,25 +137,25 @@ main {
 }
 
 .top-nav-user-name {
-  background-color: var(--color-green-1);
-  color: white;
-  padding: 6px 25px;
+  font-weight: 500;
+  color: var(--color-black-1);
+  padding: 5px 21px;
   margin-right: -10px;
   font-size: 1rem;
-  border-radius: 20px 0 0 20px;
+  border-radius: 15px 0 0 15px;
 }
 
 .top-nav-user-icon {
   background-color: white;
-  width: 35px;
-  height: 35px;
+  width: 32px;
+  height: 32px;
   border: none;
   border-radius: 50px;
 }
 
 .top-nav-user-icon img {
-  width: 35px;
-  height: 35px;
+  width: 32px;
+  height: 32px;
   opacity: 0.8;
 }
 

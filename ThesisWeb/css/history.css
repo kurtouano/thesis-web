@@ -58,11 +58,11 @@
 }
 
 .date-selection-form button {
-  font-size: 0.9rem;
-  padding: 3px 18px;
+  font-size: 0.8rem;
+  padding: 6px 20px;
   background-color: var(--color-green-1);
   border: none;
   color: white;
-  border-radius: 8px;
+  border-radius: 15px;
   cursor: pointer;
 }

@@ -37,18 +37,24 @@ $result = $conn->query($sql);
         <div class="nav-icons-div">
 
             <a href="user-dashboard.php" class="nav-icons">
-                <img class="nav-icons-img" src="assets/bins-icon.png" alt="">
-                Dashboard
+                <div class="nav-icons-content">
+                    <img class="nav-icons-img" src="assets/bins-icon.png" alt="">
+                    Dashboard
+                </div>
             </a>
 
             <a href="user-announcement.php" class="nav-icons active">
-                <img class="nav-icons-img" src="assets/announcements-icon.png" alt="">
-                Announcements
+                <div class="nav-icons-content">
+                    <img class="nav-icons-img" src="assets/announcements-icon.png" alt="">
+                    Announcements
+                </div>
             </a>
 
             <button class="nav-icons logout-btn" id="logoutBtn">
-                <img class="nav-icons-img" src="assets/logout-icon.png" alt="">
-                Logout
+                <div class="nav-icons-content">
+                    <img class="nav-icons-img" src="assets/logout-icon.png" alt="">
+                    Logout
+                </div>
             </button>
 
             <p class=footer>&copy; Omnia Revendit 2024</p>
@@ -57,8 +63,6 @@ $result = $conn->query($sql);
     </nav>
 
     <main>
-
-
         <div class="top-nav">
             <p class="top-nav-title">Announcements</p>
             <div class="top-nav-user-div">

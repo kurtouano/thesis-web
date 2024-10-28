@@ -1,5 +1,6 @@
 <?php
-require 'require/dbconf.php'; // Ensure the correct path to your dbconf.php
+require 'require/dbconf.php';
+require 'require/login-require.php';
 
 // Fetch announcements from the database
 $sql = "SELECT id, announce_title, announce_body, 
@@ -64,26 +65,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
 
         <div class="nav-icons-div">
+
             <a href="dashboard.php" class="nav-icons">
-                <img class="nav-icons-img" src="assets/dashboards-icon.png" alt="">
-                Dashboard
-            </a>
-            <a href="history.php" class="nav-icons">
-                <img class="nav-icons-img" src="assets/bins-icon.png" alt="">
-                Transactions
-            </a>
-            <a href="create-acc.php" class="nav-icons">
-                <img class="nav-icons-img" src="assets/user-icon.png" alt="">
-                Create Account
-            </a>
-            <a href="announcement.php" class="nav-icons active">
-                <img class="nav-icons-img" src="assets/announcements-icon.png" alt="">
-                Announcements
+                <div class="nav-icons-content">
+                    <img class="nav-icons-img" src="assets/dashboards-icon.png" alt="">
+                    Dashboard
+                </div>
             </a>
 
-            <button class="nav-icons logout-btn">
-                <img class="nav-icons-img" src="assets/logout-icon.png" alt="">
-                Logout
+            <a href="history.php" class="nav-icons">
+                <div class="nav-icons-content">
+                    <img class="nav-icons-img" src="assets/bins-icon.png" alt="">
+                    Transactions
+                </div>
+            </a>
+
+            <a href="create-acc.php" class="nav-icons">
+                <div class="nav-icons-content">
+                    <img class="nav-icons-img" src="assets/user-icon.png" alt="">
+                    Create Account
+                </div>
+            </a>
+
+            <a href="announcement.php" class="nav-icons active">
+                <div class="nav-icons-content">
+                    <img class="nav-icons-img" src="assets/announcements-icon.png" alt="">
+                    Announcements
+                </div>
+            </a>
+
+            <button class="nav-icons logout-btn" id="logoutBtn">
+                <div class="nav-icons-content">
+                    <img class="nav-icons-img" src="assets/logout-icon.png" alt="">
+                    Logout
+                </div>
             </button>
 
             <p class=footer>&copy; Omnia Revendit 2024</p>
@@ -158,6 +173,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/logout-listener.js"></script>
     <script src="js/announcement.js"></script>
 </body>
 

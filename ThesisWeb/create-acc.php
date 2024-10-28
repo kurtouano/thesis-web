@@ -5,8 +5,7 @@ use PHPMailer\PHPMailer\Exception;
 
 require 'vendor/autoload.php';
 require 'require/dbconf.php';
-
-session_start();
+require 'require/login-require.php';
 
 if (isset($_POST['create-acc-submit'])) {
     $fname = $_POST['fName'];
@@ -76,7 +75,7 @@ if (isset($_POST['create-acc-submit'])) {
 
             //Recipients
             $mail->setFrom('revendit.system@gmail.com', 'RevendIt');    //Sender
-            $mail->addAddress('kurt0216@gmail.com', 'user');            //Recipient
+            $mail->addAddress($email, $fname);            //Recipient
 
             $mail->isHTML(true);
             $mail->Subject = 'Successful Account Registration';
@@ -135,28 +134,38 @@ $conn->close();
         <div class="nav-icons-div">
 
             <a href="dashboard.php" class="nav-icons">
-                <img class="nav-icons-img" src="assets/dashboards-icon.png" alt="">
-                Dashboard
+                <div class="nav-icons-content">
+                    <img class="nav-icons-img" src="assets/dashboards-icon.png" alt="">
+                    Dashboard
+                </div>
             </a>
 
-            <a href="History.php" class="nav-icons">
-                <img class="nav-icons-img" src="assets/bins-icon.png" alt="">
-                Transactions
+            <a href="history.php" class="nav-icons">
+                <div class="nav-icons-content">
+                    <img class="nav-icons-img" src="assets/bins-icon.png" alt="">
+                    Transactions
+                </div>
             </a>
 
             <a href="create-acc.php" class="nav-icons active">
-                <img class="nav-icons-img" src="assets/user-icon.png" alt="">
-                Create Account
+                <div class="nav-icons-content">
+                    <img class="nav-icons-img" src="assets/user-icon.png" alt="">
+                    Create Account
+                </div>
             </a>
 
             <a href="announcement.php" class="nav-icons">
-                <img class="nav-icons-img" src="assets/announcements-icon.png" alt="">
-                Announcements
+                <div class="nav-icons-content">
+                    <img class="nav-icons-img" src="assets/announcements-icon.png" alt="">
+                    Announcements
+                </div>
             </a>
 
-            <button class="nav-icons logout-btn">
-                <img class="nav-icons-img" src="assets/logout-icon.png" alt="">
-                Logout
+            <button class="nav-icons logout-btn" id="logoutBtn">
+                <div class="nav-icons-content">
+                    <img class="nav-icons-img" src="assets/logout-icon.png" alt="">
+                    Logout
+                </div>
             </button>
 
             <p class=footer>&copy; Omnia Revendit 2024</p>
@@ -211,6 +220,7 @@ $conn->close();
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/logout-listener.js"></script>
 
     <script>
         let messageTextOption = "<?php echo $_SESSION['success_message_option']; ?>";
