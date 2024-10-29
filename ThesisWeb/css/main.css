@@ -34,6 +34,7 @@ body {
 }
 
 .sidenav-section {
+  z-index: 1;
   width: 20%;
   min-width: 300px;
   height: 100vh;
@@ -41,18 +42,52 @@ body {
   flex-direction: column;
   background-color: var(--color-black-1);
   position: fixed;
+  text-wrap: nowrap;
+
+  transition: all 0.25s ease-in-out;
+}
+
+.sidenav-section.collapsed {
+  width: 80px;
+  min-width: 20px;
 }
 
 .nav-logo {
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  padding: 5%;
+  padding: 10px;
+}
+
+.burger-sidenav {
+  z-index: 1;
+  position: absolute;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-green-1);
+  font-size: 1.5rem;
+  left: 25px;
+  top: 50px;
+  transform: rotate(90deg);
+
+  transition: all 0.25s;
+}
+
+.burger-sidenav:hover {
+  opacity: 0.7;
 }
 
 .nav-logo-img {
+  visibility: visible;
   width: 180px;
   margin-bottom: 20px;
+}
+
+.nav-logo-img.collapsed {
+  height: 80px;
+  visibility: hidden;
 }
 
 .nav-icons-div {
@@ -74,9 +109,9 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 3.5% 9%;
+  padding: 12px 30px;
 
-  transition: 0.2s ease-in-out;
+  transition: all 0.25s ease-in-out;
 }
 
 .nav-icons-div .active {
@@ -84,12 +119,12 @@ body {
 }
 
 .active .nav-icons-content {
-  transform: translateX(15px);
+  transform: translateX(10px);
 }
 
 .nav-icons-content:hover{
-  transform: translateX(15px);
-  opacity: 0.7;
+  transform: translateX(10px);
+  opacity: 0.8;
 }
 
 .nav-icons-img {
@@ -113,11 +148,24 @@ body {
   color: white;
 }
 
-main {
+.footer.collapsed {
+  display: none;
+}
+
+.main-section {
   margin-left: 300px;
   padding: 0 4%;
   height: 100vh;
   width: 80%;
+
+  transition: all 0.25s ease-in-out;
+}
+
+.main-section.collapsed {
+  margin-left: 70px;
+  padding: 0 5%;
+  height: 100vh;
+  width: 100%;
 }
 
 .top-nav {
@@ -161,7 +209,7 @@ main {
 .top-nav-user-icon img {
   width: 32px;
   height: 32px;
-  opacity: 0.8;
+  opacity: 0.7;
 }
 
 .grid-main {

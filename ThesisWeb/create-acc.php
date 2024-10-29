@@ -128,43 +128,44 @@ $conn->close();
 <body>
     <nav class="sidenav-section">
         <div class="nav-logo">
+            <button class="burger-sidenav">|||</button>
             <img class="nav-logo-img" src="assets/main-logo-light.png" alt="">
         </div>
 
         <div class="nav-icons-div">
 
-            <a href="dashboard.php" class="nav-icons">
+        <a href="dashboard.php" class="nav-icons">
                 <div class="nav-icons-content">
                     <img class="nav-icons-img" src="assets/dashboards-icon.png" alt="">
-                    Dashboard
+                    <span>Dashboard</span>
                 </div>
             </a>
 
             <a href="history.php" class="nav-icons">
                 <div class="nav-icons-content">
                     <img class="nav-icons-img" src="assets/bins-icon.png" alt="">
-                    Transactions
+                    <span>Transactions</span>
                 </div>
             </a>
 
             <a href="create-acc.php" class="nav-icons active">
                 <div class="nav-icons-content">
                     <img class="nav-icons-img" src="assets/user-icon.png" alt="">
-                    Create Account
+                    <span>Create Account</span>
                 </div>
             </a>
 
             <a href="announcement.php" class="nav-icons">
                 <div class="nav-icons-content">
                     <img class="nav-icons-img" src="assets/announcements-icon.png" alt="">
-                    Announcements
+                    <span>Announcements</span>
                 </div>
             </a>
 
             <button class="nav-icons logout-btn" id="logoutBtn">
                 <div class="nav-icons-content">
                     <img class="nav-icons-img" src="assets/logout-icon.png" alt="">
-                    Logout
+                    <span>Logout</span>
                 </div>
             </button>
 
@@ -173,7 +174,7 @@ $conn->close();
         </div>
     </nav>
 
-    <main>
+    <main class="main-section">
 
         <div class="top-nav">
             <p class="top-nav-title">Create User Account</p>
@@ -221,6 +222,7 @@ $conn->close();
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/logout-listener.js"></script>
+    <script src="js/nav-transitions.js"></script>
 
     <script>
         let messageTextOption = "<?php echo $_SESSION['success_message_option']; ?>";
