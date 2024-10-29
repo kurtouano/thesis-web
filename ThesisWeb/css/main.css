@@ -35,7 +35,7 @@ body {
 
 .sidenav-section {
   width: 20%;
-  min-width: 220px;
+  min-width: 300px;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -74,7 +74,7 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 3.5% 10%;
+  padding: 3.5% 9%;
 
   transition: 0.2s ease-in-out;
 }
@@ -83,8 +83,13 @@ body {
   background-color: var(--color-green-1);
 }
 
+.active .nav-icons-content {
+  transform: translateX(15px);
+}
+
 .nav-icons-content:hover{
-  transform: translateX(10px);
+  transform: translateX(15px);
+  opacity: 0.7;
 }
 
 .nav-icons-img {
@@ -109,10 +114,10 @@ body {
 }
 
 main {
+  margin-left: 300px;
   padding: 0 4%;
   height: 100vh;
   width: 80%;
-  margin-left: 20%;
 }
 
 .top-nav {

@@ -81,7 +81,6 @@ if ($getBinsCapacity) {
 }
 
 $conn->close();
-
 ?>
 
 
