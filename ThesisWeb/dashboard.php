@@ -7,6 +7,18 @@ require 'vendor/autoload.php';
 require 'require/dbconf.php';
 require 'require/login-require.php';
 
+$yearOptions = [];
+$query = "SELECT DISTINCT YEAR(timestamp) AS year FROM transaction_records ORDER BY year DESC";
+$result = mysqli_query($conn, $query);
+
+if ($result) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $yearOptions[] = $row['year'];
+    }
+}
+
+$currentYear = date('Y');
+
 $getBinsCapacity = mysqli_query($conn, "SELECT pet_bin, glass_bin, aluminum_bin, isBinFull, date_time FROM bins_capacity ORDER BY date_time DESC LIMIT 1");
 
 if ($getBinsCapacity) {
@@ -94,15 +106,16 @@ $conn->close();
 
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/dashboard.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <link rel="stylesheet" href="css/responsive.css">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 
 <body>
-    <nav class="sidenav-section">
+    <nav class="sidenav-section collapsed">
         <div class="nav-logo">
-            <button class="burger-sidenav">|||</button>
-            <img class="nav-logo-img" src="assets/main-logo-light.png" alt="">
+            <button class="burger-sidenav collapsed">|||</button>
+            <img class="nav-logo-img collapsed" src="assets/main-logo-light.png" alt="">
         </div>
 
         <div class="nav-icons-div">
@@ -141,12 +154,12 @@ $conn->close();
                 </div>
             </button>
 
-            <p class=footer>&copy; Omnia Revendit 2024</p>
+            <p class="footer collapsed">&copy; Omnia Revendit 2024</p>
 
         </div>
     </nav>
 
-    <main class="main-section">
+    <main class="main-section collapsed">
 
         <div class="top-nav">
             <p class="top-nav-title">Dashboard</p>
@@ -195,17 +208,30 @@ $conn->close();
 
 
         <div class="dashboard-charts-div">
-            <div class="chart-date-text"></div> <!-- CHART TITLE -->
-            <div class="chart-controls">
-                <select id="timePeriod" onchange="changePeriod(this.value)">
-                    <option value="week">Week</option>
-                    <option value="month">Month</option>
-                    <option value="year">Year</option>
-                </select>
-            </div>
+            <div class="chart-date-text"></div>
             <div class="dashboard-charts">
-                <canvas id="myBarChart"></canvas>
-                <canvas id="myPieChart"></canvas>
+                <div class="bar-chart-div">
+                    <canvas id="myBarChart"></canvas>
+                    <div class="chart-controls">
+                        <select id="timePeriod" onchange="changePeriod(this.value)">
+                            <option value="week">Week</option>
+                            <option value="year">Year</option>
+                        </select>
+                        <select id="yearOptions" onchange="yearOptions(this.value)">
+                            <?php
+                            if (!in_array($currentYear, $yearOptions)) {
+                                array_unshift($yearOptions, $currentYear);
+                            }
+                            foreach ($yearOptions as $year) {
+                                echo "<option value='$year'>$year</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="pie-chart-div">
+                    <canvas id="myPieChart"></canvas>
+                </div>
             </div>
         </div>
 

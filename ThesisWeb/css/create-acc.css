@@ -16,10 +16,10 @@
 
 .create-acc-form input,
 select {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   border: 1px solid rgba(143, 142, 142, 0.538);
   border-radius: 5px;
-  padding: 10px 10px;
+  padding: 10px 15px;
   margin-bottom: 15px;
 }
 

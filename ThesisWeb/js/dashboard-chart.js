@@ -1,50 +1,61 @@
+// Helper function to generate last 7 days as labels
+function getLast7Days() {
+    const days = [];
+    const currentDate = new Date();
+    for (let i = 6; i >= 0; i--) {
+        const date = new Date(currentDate);
+        date.setDate(currentDate.getDate() - i);
+        const formattedDate = `${date.getMonth() + 1}/${date.getDate()}`; // Format as MM/DD
+        days.push(formattedDate);
+    }
+    return days;
+}
+
+// Populate bar_xValues with generated dates for the 'week' period
 var bar_xValues = {
-    week: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-    month: ["Week 1", "Week 2", "Week 3", "Week 4"],
+    week: getLast7Days(),
     year: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 };
 
 var bar_values = {
     plastic: {
         week: [],
-        month: [],
         year: []
     },
     glass: {
         week: [],
-        month: [],
         year: []
     },
     aluminum: {
         week: [],
-        month: [],
         year: []
     }
 };
 
 var currentPeriod = 'week'; // Default period
-updateBarChart();
+var selectedYear = new Date().getFullYear(); // Default year is the current year
 
-fetch('/ThesisWeb/require/dashboard-chart-render.php')
-    .then(response => response.json())
-    .then(data => {
-        // Fill bar_values with fetched data
-        bar_values.plastic.week = data.week['PET'] || [];  // PET plastic data
-        bar_values.glass.week = data.week['Glass'] || [];
-        bar_values.aluminum.week = data.week['Aluminum'] || [];
-        
-        bar_values.plastic.month = data.month['PET'] || [];
-        bar_values.glass.month = data.month['Glass'] || [];
-        bar_values.aluminum.month = data.month['Aluminum'] || [];
-        
-        bar_values.plastic.year = data.year['PET'] || [];
-        bar_values.glass.year = data.year['Glass'] || [];
-        bar_values.aluminum.year = data.year['Aluminum'] || [];
+// Fetch data and update bar chart (remaining code)
+fetchDataAndUpdateChart();
 
-        // Update the chart after fetching data
-        updateBarChart();
-    })
-    .catch(error => console.error('Error fetching data:', error));
+function fetchDataAndUpdateChart() {
+    fetch(`/ThesisWeb/require/dashboard-chart-render.php?year=${selectedYear}`)
+        .then(response => response.json())
+        .then(data => {
+            // Fill bar_values with fetched data
+            bar_values.plastic.week = data.week['PET'] || [];  // PET plastic data
+            bar_values.glass.week = data.week['Glass'] || [];
+            bar_values.aluminum.week = data.week['Aluminum'] || [];
+            
+            bar_values.plastic.year = data.year['PET'] || [];
+            bar_values.glass.year = data.year['Glass'] || [];
+            bar_values.aluminum.year = data.year['Aluminum'] || [];
+
+            // Update the chart after fetching data
+            updateBarChart();
+        })
+        .catch(error => console.error('Error fetching data:', error));
+}
 
 function updateBarChart() {
     var selectedPeriod = bar_xValues[currentPeriod];
@@ -121,8 +132,14 @@ function updateBarChart() {
     });
 }
 
-// Function to handle dropdown change
+// Function to handle period dropdown change
 function changePeriod(period) {
     currentPeriod = period;
     updateBarChart();
+}
+
+// Function to handle year dropdown change
+function yearOptions(year) {
+    selectedYear = year;
+    fetchDataAndUpdateChart();
 }

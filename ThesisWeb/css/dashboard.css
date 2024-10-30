@@ -4,11 +4,22 @@
   justify-content: space-between;
   background-color: white;
   border-radius: 20px;
+  min-width: 200px;
   padding: 4% 6%;
   box-shadow: 4px 4px 4px 0 rgba(143, 142, 142, 0.724);
+
+  transition: all 0.15s ease-in-out;
+}
+
+.dashboard-div:hover {
+  box-shadow: 1px 1px 6px 1px rgba(143, 142, 142, 0.724);
 }
 
 .dashboard-icon {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   background-color: var(--color-green-1);
   padding: 4% 5%;
   border-radius: 10px;
@@ -26,6 +37,7 @@
 }
 
 .material-name {
+  text-wrap: nowrap;
   font-size: var(--font-size-body);
   color: var(--color-gray);
 }
@@ -47,38 +59,41 @@
   font-weight: bold;
 }
 
-.chart-controls label {
-  margin-right: 5px;
-}
-
-#timePeriod {
-  font-size: 1rem;
-  padding: 0 4px;
-}
-
-.dashboard-charts {
+.chart-controls {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-}
-
-.chart-controls {
+  column-gap: 10px;
   position: absolute;
   color: black;
   border: none;
   border-radius: 3px;
-  top: -10px;
-  left: 560px;
+  top: -15px;
+  right: 0;
 }
 
-#myBarChart {
-  width: 100%;
-  max-width: 660px;
-  border-radius: 20px;
+#timePeriod, #yearOptions {
+  font-size: 0.9rem;
+  padding: 0 5px;
 }
 
-#myPieChart {
+.dashboard-charts {
   width: 100%;
-  max-width: 300px;
-  border-radius: 20px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  justify-items: center;
+  column-gap: 5%;
 }
+
+.bar-chart-div {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  min-width: 420px;
+}
+
+.pie-chart-div {
+  width: 100%;
+  max-width: 350px;
+  min-width: 220px;
+}
+

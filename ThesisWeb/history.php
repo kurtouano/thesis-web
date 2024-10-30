@@ -54,18 +54,18 @@ $conn->close();
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/history.css">
+    <link rel="stylesheet" href="css/responsive.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 
 <body>
-    <nav class="sidenav-section">
+<nav class="sidenav-section collapsed">
         <div class="nav-logo">
-            <button class="burger-sidenav">|||</button>
-            <img class="nav-logo-img" src="assets/main-logo-light.png" alt="">
+            <button class="burger-sidenav collapsed">|||</button>
+            <img class="nav-logo-img collapsed" src="assets/main-logo-light.png" alt="">
         </div>
 
         <div class="nav-icons-div">
-
             <a href="dashboard.php" class="nav-icons">
                 <div class="nav-icons-content">
                     <img class="nav-icons-img" src="assets/dashboards-icon.png" alt="">
@@ -101,12 +101,12 @@ $conn->close();
                 </div>
             </button>
 
-            <p class=footer>&copy; Omnia Revendit 2024</p>
+            <p class="footer collapsed">&copy; Omnia Revendit 2024</p>
 
         </div>
     </nav>
 
-    <main class="main-section">
+    <main class="main-section collapsed">
         <div class="top-nav">
             <p class="top-nav-title">Transactions</p>
 

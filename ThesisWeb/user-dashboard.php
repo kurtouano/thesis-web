@@ -64,9 +64,10 @@ $conn->close();
 </head>
 
 <body>
-    <nav class="sidenav-section">
+    <nav class="sidenav-section collapsed">
         <div class="nav-logo">
-            <img class="nav-logo-img" src="assets/main-logo-light.png" alt="">
+            <button class="burger-sidenav collapsed">|||</button>
+            <img class="nav-logo-img collapsed" src="assets/main-logo-light.png" alt="">
         </div>
 
         <div class="nav-icons-div">
@@ -74,30 +75,29 @@ $conn->close();
             <a href="user-dashboard.php" class="nav-icons active">
                 <div class="nav-icons-content">
                     <img class="nav-icons-img" src="assets/bins-icon.png" alt="">
-                    Dashboard
+                    <span>Dashboard</span>
                 </div>
             </a>
 
             <a href="user-announcement.php" class="nav-icons">
                 <div class="nav-icons-content">
                     <img class="nav-icons-img" src="assets/announcements-icon.png" alt="">
-                    Announcements
+                    <span>Announcements</span>
                 </div>
             </a>
 
             <button class="nav-icons logout-btn" id="logoutBtn">
                 <div class="nav-icons-content">
                     <img class="nav-icons-img" src="assets/logout-icon.png" alt="">
-                    Logout
+                    <span>Logout</span>
                 </div>
             </button>
 
-            <p class=footer>&copy; Omnia Revendit 2024</p>
+            <p class="footer collapsed">&copy; Omnia Revendit 2024</p>
         </div>
     </nav>
 
-    <main>
-
+    <main class="main-section collapsed">
         <div class="top-nav">
             <p class="top-nav-title">Dashboard</p>
             <div class="top-nav-user-div">
@@ -196,6 +196,7 @@ $conn->close();
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/logout-listener.js"></script>
+    <script src="js/nav-transitions.js"></script>
 
     <script>
         let loginSuccess = <?php echo json_encode($loginSuccess); ?>;

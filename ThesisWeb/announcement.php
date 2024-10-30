@@ -70,18 +70,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/announcement.css">
+    <link rel="stylesheet" href="css/responsive.css">
 </head>
 
 <body>
-    <nav class="sidenav-section">
+    <nav class="sidenav-section collapsed">
         <div class="nav-logo">
-            <button class="burger-sidenav">|||</button>
-            <img class="nav-logo-img" src="assets/main-logo-light.png" alt="">
+            <button class="burger-sidenav collapsed">|||</button>
+            <img class="nav-logo-img collapsed" src="assets/main-logo-light.png" alt="">
         </div>
 
         <div class="nav-icons-div">
-
-        <a href="dashboard.php" class="nav-icons">
+            <a href="dashboard.php" class="nav-icons">
                 <div class="nav-icons-content">
                     <img class="nav-icons-img" src="assets/dashboards-icon.png" alt="">
                     <span>Dashboard</span>
@@ -116,13 +116,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
             </button>
 
-            <p class=footer>&copy; Omnia Revendit 2024</p>
+            <p class="footer collapsed">&copy; Omnia Revendit 2024</p>
+
         </div>
-
-
     </nav>
 
-    <main class="main-section">
+    <main class="main-section collapsed">
         <div class="top-nav">
             <p class="top-nav-title">Announcements</p>
             <div class="top-nav-user-div">
@@ -176,8 +175,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <label for="announce_title">Title:</label>
                 <input type="text" id="announce_title" name="announce_title" required>
 
-                <label for="announce_img">Add Image (Optional):  </label>
-                <input type="file" name ="announce_img" id="announce_img" accept="image/*">
+                <label for="announce_img">Add Image (Optional): </label>
+                <input type="file" name="announce_img" id="announce_img" accept="image/*">
 
                 <label for="announce_body">Description:</label>
                 <textarea id="announce_body" name="announce_body" required></textarea>

@@ -33,6 +33,13 @@ body {
   flex-direction: row;
 }
 
+.sidenav-section,
+.burger-sidenav,
+.nav-icons-content,
+.main-section {
+  transition: all 0.25s ease-in-out;
+}
+
 .sidenav-section {
   z-index: 1;
   width: 20%;
@@ -43,8 +50,6 @@ body {
   background-color: var(--color-black-1);
   position: fixed;
   text-wrap: nowrap;
-
-  transition: all 0.25s ease-in-out;
 }
 
 .sidenav-section.collapsed {
@@ -60,6 +65,18 @@ body {
   padding: 10px;
 }
 
+.nav-logo-img {
+  opacity: 1;
+  width: 180px;
+  margin-bottom: 20px;
+}
+
+.nav-logo-img.collapsed {
+  transition: opacity 0.25s ease-in-out;
+  height: 80px;
+  opacity: 0;
+}
+
 .burger-sidenav {
   z-index: 1;
   position: absolute;
@@ -68,26 +85,13 @@ body {
   cursor: pointer;
   color: var(--color-green-1);
   font-size: 1.5rem;
-  left: 25px;
+  left: 32px;
   top: 50px;
   transform: rotate(90deg);
-
-  transition: all 0.25s;
 }
 
 .burger-sidenav:hover {
   opacity: 0.7;
-}
-
-.nav-logo-img {
-  visibility: visible;
-  width: 180px;
-  margin-bottom: 20px;
-}
-
-.nav-logo-img.collapsed {
-  height: 80px;
-  visibility: hidden;
 }
 
 .nav-icons-div {
@@ -109,9 +113,12 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 12px 30px;
+  padding: 12px 20px;
+}
 
-  transition: all 0.25s ease-in-out;
+.nav-icons-content span {
+  transition: opacity 0.25s ease-in-out;
+  opacity: 0;
 }
 
 .nav-icons-div .active {
@@ -122,7 +129,7 @@ body {
   transform: translateX(10px);
 }
 
-.nav-icons-content:hover{
+.nav-icons-content:hover {
   transform: translateX(10px);
   opacity: 0.8;
 }
@@ -157,8 +164,6 @@ body {
   padding: 0 4%;
   height: 100vh;
   width: 80%;
-
-  transition: all 0.25s ease-in-out;
 }
 
 .main-section.collapsed {
@@ -215,7 +220,7 @@ body {
 .grid-main {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 5%;
+  grid-gap: 4%;
   position: relative;
 }
 

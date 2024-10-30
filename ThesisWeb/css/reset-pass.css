@@ -1,0 +1,42 @@
+.reset-pass-div {
+    background-color: var(--color-black-1);
+    padding: 50px 50px;
+    display: flex;
+    flex-direction: column;
+    margin: 40px auto;
+    width: 320px;
+    color: white;
+    row-gap: 20px;
+    border-radius: 10px;
+}
+
+.reset-pass-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.reset-pass-title {
+    font-size: 0.9rem;
+}
+
+.reset-pass-div form {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 20px;
+}
+
+.reset-pass-div form input {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+}
+
+.reset-pass-div form button {
+    margin-top: 25px;
+    font-size: 0.8rem;
+    padding: 10px 5px;
+    background-color: var(--color-green-1);
+    border: none;
+    cursor: pointer;
+    border-radius: 20px;
+    color: white;
+} 

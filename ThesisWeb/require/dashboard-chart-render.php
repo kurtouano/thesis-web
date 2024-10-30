@@ -2,53 +2,75 @@
 
 require 'dbconf.php';
 
+// Get year parameter from query string, default to current year if not provided
+$year = isset($_GET['year']) ? intval($_GET['year']) : date("Y");
+
+// Query for the last 7 days
 $weekQuery = "
-    SELECT SUM(pet_quantity) AS plastic, SUM(glass_quantity) AS glass, SUM(aluminum_quantity) AS aluminum, WEEK(timestamp) AS week_num 
-    FROM transaction_records 
-    WHERE YEAR(timestamp) = YEAR(CURRENT_DATE) 
-    GROUP BY week_num
+    SELECT SUM(pet_quantity) AS plastic, SUM(glass_quantity) AS glass, SUM(aluminum_quantity) AS aluminum, DATE(timestamp) AS day
+    FROM transaction_records
+    WHERE timestamp >= DATE_SUB(CURDATE(), INTERVAL 6 DAY)
+    GROUP BY day
+    ORDER BY day
 ";
 
-$monthQuery = "
-    SELECT SUM(pet_quantity) AS plastic, SUM(glass_quantity) AS glass, SUM(aluminum_quantity) AS aluminum, MONTH(timestamp) AS month_num 
-    FROM transaction_records 
-    WHERE YEAR(timestamp) = YEAR(CURRENT_DATE) 
-    GROUP BY month_num
-";
-
+// Query for the selected year's monthly data
 $yearQuery = "
-    SELECT SUM(pet_quantity) AS plastic, SUM(glass_quantity) AS glass, SUM(aluminum_quantity) AS aluminum, YEAR(timestamp) AS year_num 
+    SELECT SUM(pet_quantity) AS plastic, SUM(glass_quantity) AS glass, SUM(aluminum_quantity) AS aluminum, MONTH(timestamp) AS month 
     FROM transaction_records 
-    GROUP BY year_num
+    WHERE YEAR(timestamp) = $year 
+    GROUP BY month
 ";
 
+// Execute the queries
 $weekResult = $conn->query($weekQuery);
-$monthResult = $conn->query($monthQuery);
 $yearResult = $conn->query($yearQuery);
 
-$weekData = [];
-$monthData = [];
-$yearData = [];
+// Initialize arrays to hold data
+$weekData = [
+    'PET' => [],
+    'Glass' => [],
+    'Aluminum' => []
+];
 
-// Fetch weekly data
+$yearData = [
+    'PET' => array_fill(0, 12, 0), // Initialize all months to 0
+    'Glass' => array_fill(0, 12, 0),
+    'Aluminum' => array_fill(0, 12, 0)
+];
+
+// Create an array for the last 7 days
+$last7Days = [];
+for ($i = 6; $i >= 0; $i--) {
+    $date = date('Y-m-d', strtotime("-$i days")); // Get the date for the last 7 days
+    $last7Days[$date] = ['PET' => 0, 'Glass' => 0, 'Aluminum' => 0]; // Default to 0
+}
+
+// Fetch weekly data and populate the last7Days array
 while ($row = $weekResult->fetch_assoc()) {
-    $weekData['PET'][] = (int)$row['plastic'];
-    $weekData['Glass'][] = (int)$row['glass'];
-    $weekData['Aluminum'][] = (int)$row['aluminum'];
+    $day = $row['day'];
+    if (isset($last7Days[$day])) {
+        $last7Days[$day] = [
+            'PET' => (int)$row['plastic'],
+            'Glass' => (int)$row['glass'],
+            'Aluminum' => (int)$row['aluminum']
+        ];
+    }
 }
 
-// Fetch monthly data
-while ($row = $monthResult->fetch_assoc()) {
-    $monthData['PET'][] = (int)$row['plastic'];
-    $monthData['Glass'][] = (int)$row['glass'];
-    $monthData['Aluminum'][] = (int)$row['aluminum'];
+// Extract structured data for the week chart
+foreach ($last7Days as $dayData) {
+    $weekData['PET'][] = $dayData['PET'];
+    $weekData['Glass'][] = $dayData['Glass'];
+    $weekData['Aluminum'][] = $dayData['Aluminum'];
 }
 
-// Fetch yearly data
+// Fetch yearly data and place it in the appropriate month index (0-based for Jan to Dec)
 while ($row = $yearResult->fetch_assoc()) {
-    $yearData['PET'][] = (int)$row['plastic'];
-    $yearData['Glass'][] = (int)$row['glass'];
-    $yearData['Aluminum'][] = (int)$row['aluminum'];
+    $monthIndex = (int)$row['month'] - 1; // Convert 1-based month to 0-based index
+    $yearData['PET'][$monthIndex] = (int)$row['plastic'];
+    $yearData['Glass'][$monthIndex] = (int)$row['glass'];
+    $yearData['Aluminum'][$monthIndex] = (int)$row['aluminum'];
 }
 
 // Close the database connection
@@ -57,7 +79,6 @@ $conn->close();
 // Return data as JSON
 echo json_encode([
     'week' => $weekData,
-    'month' => $monthData,
     'year' => $yearData
 ]);
 ?>

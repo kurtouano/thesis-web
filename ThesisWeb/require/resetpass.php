@@ -26,24 +26,43 @@ if (isset($_GET['email']) && isset($_GET['token'])) {
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Reset Password</title>
-            <link rel="stylesheet" href="css/main.css">
+            <link rel="stylesheet" href="../css/reset-pass.css">
+            <link rel="stylesheet" href="../css/main.css">
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         </head>
         <body>
-            <h2>Reset Your Password</h2>
-            <form method="POST" action="">
-                <input type="hidden" name="email" value="<?php echo htmlspecialchars($email); ?>">
-                <input type="hidden" name="token" value="<?php echo htmlspecialchars($token); ?>">
-                <input type="password" name="new_password" placeholder="Enter new password" required>
-                <button type="submit" name="reset_password">Reset Password</button>
-            </form>
+            <div class="reset-pass-div">
+                <p class="reset-pass-name">Revendit</p>
+                <p class="reset-pass-title">Reset Your Password</p>
+                <form method="POST" action="">
+                    <input type="hidden" name="email" value="<?php echo htmlspecialchars($email); ?>">
+                    <input type="hidden" name="token" value="<?php echo htmlspecialchars($token); ?>">
+                    <input type="password" name="new_password" placeholder="New password" required>
+                    <button type="submit" name="reset_password">Reset Password</button>
+                </form>
+            </div>
         </body>
         </html>
         <?php
     } else {
-        echo "Invalid or expired token.";
+        echo "<script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Invalid or expired token',
+                text: 'Please request a new password reset link.',
+                confirmButtonColor: '#3085d6'
+            });
+        </script>";
     }
 } else {
-    echo "Invalid request.";
+    echo "<script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Invalid request',
+            text: 'Required parameters are missing.',
+            confirmButtonColor: '#3085d6'
+        });
+    </script>";
 }
 
 // Handle the form submission
@@ -60,9 +79,27 @@ if (isset($_POST['reset_password'])) {
     $stmt->bind_param("sss", $hashedPassword, $email, $token);
 
     if ($stmt->execute()) {
-        echo "Your password has been reset successfully.";
+        echo "<script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Password Reset Successful',
+                text: 'Your password has been reset successfully.',
+                confirmButtonColor: '#3085d6'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '../login.php'; // Redirect to login page after the alert is closed
+                }
+            });
+        </script>";
     } else {
-        echo "Error resetting password.";
+        echo "<script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'There was an issue resetting your password. Please try again.',
+                confirmButtonColor: '#d33'
+            });
+        </script>";
     }
 
     // Close the connection

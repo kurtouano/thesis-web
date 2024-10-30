@@ -1,5 +1,4 @@
 document.querySelector('.burger-sidenav').addEventListener('click', function() {
-    let isClicked = 1;
     const sidenav = document.querySelector('.sidenav-section');
     const navIconsContentText = document.querySelectorAll('.nav-icons-content span');
     const navIconsContent = document.querySelectorAll('.nav-icons-content');
@@ -18,8 +17,7 @@ document.querySelector('.burger-sidenav').addEventListener('click', function() {
     // Hide or show text based on the collapsed state
     if (sidenav.classList.contains('collapsed')) {
         navIconsContentText.forEach(content => {
-            content.style.display = 'none';
-
+            content.style.opacity = '0';
         });
 
         navIconsContent.forEach(content => {
@@ -28,7 +26,7 @@ document.querySelector('.burger-sidenav').addEventListener('click', function() {
     
     } else {
         navIconsContentText.forEach(content => {
-            content.style.display = 'flex';
+            content.style.opacity = '1';
         });
 
         navIconsContent.forEach(content => {
