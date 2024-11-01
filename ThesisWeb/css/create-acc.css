@@ -9,7 +9,8 @@
   border-radius: 20px;
   display: flex;
   flex-direction: column;
-  width: 450px;
+  max-width: 450px;
+  width: 100%;
   padding: 30px 35px;
   box-shadow: 0 0 10px 0 rgba(143, 142, 142, 0.724);
 }
@@ -19,7 +20,7 @@ select {
   font-size: 0.8rem;
   border: 1px solid rgba(143, 142, 142, 0.538);
   border-radius: 5px;
-  padding: 10px 15px;
+  padding: 8px 15px;
   margin-bottom: 15px;
 }
 
