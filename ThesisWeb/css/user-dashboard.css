@@ -38,3 +38,15 @@
 .user-points-div span {
   font-size: 1.1rem;
 }
+
+
+@media (max-width: 769px) {
+  .user-points-div {
+    width: 25%;
+    height: 160px;  
+  }
+
+  .user-points-num {
+    font-size: 3rem;
+  }
+}

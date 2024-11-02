@@ -25,6 +25,7 @@ $result = $conn->query($sql);
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/announcement.css">
+    <link rel="stylesheet" href="css/responsive.css">
 
 </head>
 

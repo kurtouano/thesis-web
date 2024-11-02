@@ -64,6 +64,7 @@
   .recent-transaction-div table {
     font-size: 0.7rem;
   }
+
 }
 
 @media (max-width:670px) {
@@ -100,6 +101,18 @@
     margin-top: 200px;
   }
 
+  .recent-transaction-div table {
+    font-size: 0.7rem;
+  } 
+
+  .recent-transaction-div th {
+    padding: 7px;
+  }
+
+  .recent-transaction-div td {
+    padding: 7px;
+  }
+
   .date-selection-form {
     width: 100%;
     display: flex;
@@ -129,7 +142,6 @@
     padding: 25px 25px;
   }
 
-  
   .dashboard-charts {
     row-gap: 30px;
   }
@@ -143,10 +155,68 @@
     max-width: 320px;
   }
 
-  /* History */
+  .recent-transaction-div table {
+    font-size: 0.5rem;
+  } 
+
+  .recent-transaction-div th {
+    padding: 5px;
+  }
+  
+  /* Announcements */
+
+  .announcement-grid {
+    margin-top: 40px;
+  }
+
+  .announcement-latest-text {
+    top: -60px;
+    font-size: 0.9rem;
+  }
+
+  .announcement-add, .announcement-delete {
+    font-size: 0.7rem;
+    width: 50%;
+    top: -20px;
+  }
+
+  .announcement-add {
+    left: 0;
+  }
+
+  .announcement-delete-each {
+    bottom: 45px;
+  }
+
+  .announcement-div {
+    padding: 10px 20px;
+  }
+
+  .announcement-img {
+    min-width: 300px;
+  }
+
+  .announcement-title {
+    font-size: 0.9rem;
+  }
+
+  .announcement-timestamp, .announcement-event-date, .announcement-body{
+    text-wrap: nowrap;
+    font-size: 0.7rem;
+  }
+
 }
 
 @media (max-width: 426px) {
+  .login-form {
+    width: 300px;
+    padding: 15px;
+  }
+
+  .login-forgot-pass {
+    bottom: 120px;
+  }
+
   .top-nav-title {
     font-size: 1.3rem;
   }
@@ -168,8 +238,5 @@
   .main-section.collapsed {
     padding: 0 20px;
   }
-
-   /* History */
-
   
 }

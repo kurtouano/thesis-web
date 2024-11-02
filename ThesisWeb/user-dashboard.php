@@ -56,6 +56,7 @@ $conn->close();
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/history.css">
+    <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/user-dashboard.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
