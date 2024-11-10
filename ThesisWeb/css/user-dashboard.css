@@ -1,8 +1,13 @@
+.main-section.collapsed {
+
+}
+
 .user-dashboard-body-div {
+  margin-top: 100px;
   display: flex;
   flex-direction: row;
-  margin-top: 90px;
-  column-gap: 60px;
+  justify-content: space-between;
+  column-gap: 40px;
 }
 
 .recent-transaction-div {
@@ -11,7 +16,6 @@
 
 .user-points-div {
   position: relative;
-  width: 25%;
   height: 180px;
 
   display: flex;
@@ -27,6 +31,7 @@
 .user-points-title {
   color: black;
   position: absolute;
+  text-wrap: nowrap;
   top: -35px;
   left: 0;
 }
@@ -40,13 +45,98 @@
 }
 
 
-@media (max-width: 769px) {
+@media (max-width: 850px) {
+  .user-dashboard-body-div {
+    margin-top: 75px;
+  }
+
   .user-points-div {
     width: 25%;
     height: 160px;  
   }
 
   .user-points-num {
-    font-size: 3rem;
+    font-size: 2.5rem;
+  }
+
+  .user-points-title {
+    top: -25px;
+  }
+
+  .recent-transaction-text {
+    top: -165px;
+  }  
+
+  .recent-transaction-div {
+    margin-top: 140px;
+  } 
+
+  .recent-transaction-div table {
+    font-size: 0.7rem;
+  } 
+
+  .recent-transaction-div th {
+    padding: 7px;
+  }
+
+  .recent-transaction-div td {
+    padding: 7px;
+  }
+
+  .date-selection-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  
+    top: -140px;
+    left: 0;
+  }
+
+  .date-selection-form input {
+    width: 100%;
+    font-family: Roboto;
+    font-size: 0.9rem;
+    padding: 6px 10px;
+  }
+
+  .date-selection-form button {
+    margin-top: 10px;
+    width: 100%;
+    padding: 8px 20px;
   }
 }
+
+@media (max-width: 768px) {
+
+  .user-points-div {
+    height: 120px;
+  }
+
+  .user-points-num {
+    font-size: 2.2rem;
+  }
+
+  .user-points-div span{
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 550px) {
+  .user-dashboard-body-div {
+    flex-direction: column;
+    margin-top: 55px;
+    row-gap: 55px;
+  }
+
+  .user-points-div {
+    width: 100%;
+  }
+}
+
+@media (max-width: 376px) {
+  .top-nav-user-name {
+    font-size: 0.75rem;
+  }
+}
+
+

@@ -8,7 +8,7 @@ if (isset($_POST['login-submit'])) {
     $_SESSION['logEmail']  = $_POST['logEmail'];
     $logPass = $_POST['logPassword'];
 
-    $verifyPass = $conn->prepare("SELECT acc_pass, is_admin FROM users_account WHERE acc_email = ?");
+    $verifyPass = $conn->prepare("SELECT acc_pass, is_admin, f_name FROM users_account WHERE acc_email = ?");
     $verifyPass->bind_param("s", $_SESSION['logEmail']);
     $verifyPass->execute();
     $verifyPassResult = $verifyPass->get_result();
@@ -17,6 +17,7 @@ if (isset($_POST['login-submit'])) {
         $user = $verifyPassResult->fetch_assoc();
         $hashedPassword = $user['acc_pass'];
         $isAdmin = $user['is_admin'];
+        $fname = $user['f_name'];
 
         if (password_verify($logPass, $hashedPassword)) {
             session_regenerate_id(true);
@@ -26,6 +27,7 @@ if (isset($_POST['login-submit'])) {
                 header("Location: dashboard.php");
                 exit();
             } else {
+                $_SESSION['fname'] = $fname;
                 $_SESSION['loginSuccess'] = 1;
                 header("Location: user-dashboard.php");
                 exit();

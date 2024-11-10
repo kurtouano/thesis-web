@@ -26,6 +26,7 @@ $result = $conn->query($sql);
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/announcement.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/user-announcement.css">
 
 </head>
 
@@ -67,7 +68,7 @@ $result = $conn->query($sql);
         <div class="top-nav">
             <p class="top-nav-title">Announcements</p>
             <div class="top-nav-user-div">
-                <p class="top-nav-user-name"><?= htmlspecialchars($logEmail) ?></p>
+                <p class="top-nav-user-name"><?= htmlspecialchars($fname) ?></p>
                 <button class="top-nav-user-icon">
                     <img src="assets/user-icon2.png" alt="">
                 </button>
@@ -83,7 +84,9 @@ $result = $conn->query($sql);
                     while ($row = $result->fetch_assoc()) {
                         echo '<div class="announcement-div" id="announcement-' . $row['id'] . '"> ';
                         echo '<div class="announcement-title">' . htmlspecialchars($row['announce_title']) . '<p class="announcement-timestamp">' . htmlspecialchars($row['display_timestamp']) . '</p></div>';
-                        echo '<div class="announcement-img-body-div"><img class="announcement-img" src="' . htmlspecialchars($row['announce_img']) . '"></div>'; 
+                        if (!empty($row['announce_img'])) {
+                            echo '<div class="announcement-img-body-div"><img class="announcement-img" src="' . htmlspecialchars($row['announce_img']) . '"></div>';
+                        }
                         echo '<p class="announcement-body">' . htmlspecialchars($row['announce_body']) . '</p>';
                         echo '<form method="POST" action="require/delete_announcement.php" style="display: inline;">'; // Form for deletion
                         echo '<input type="hidden" name="id" value="' . htmlspecialchars($row['id']) . '">'; // Hidden input for the ID

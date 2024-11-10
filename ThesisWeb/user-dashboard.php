@@ -102,7 +102,7 @@ $conn->close();
         <div class="top-nav">
             <p class="top-nav-title">Dashboard</p>
             <div class="top-nav-user-div">
-                <p class="top-nav-user-name"><?= $logEmail ?></p>
+                <p class="top-nav-user-name"><?= htmlspecialchars($fname) ?></p>
                 <button class="top-nav-user-icon">
                     <img src="assets/user-icon2.png" alt="">
                 </button>
@@ -110,7 +110,7 @@ $conn->close();
         </div>
 
         <div class="grid-main">
-            <div class="dashboard-today-text"><?php echo "Total Materials" ?> </div>
+            <div class="dashboard-today-text">Total Materials (<?php echo date('F j, Y'); ?>) </div>
 
             <div class="dashboard-div">
                 <div class="dashboard-icon" style="background-color: #1D7031;">
