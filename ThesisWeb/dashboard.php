@@ -211,7 +211,7 @@ $conn->close();
             <div class="chart-date-text"></div>
             <div class="dashboard-charts">
                 <div class="bar-chart-div">
-                    <canvas id="myBarChart"></canvas>
+                    <canvas id="myBarChart" ></canvas>
                     <div class="chart-controls">
                         <select id="timePeriod" onchange="changePeriod(this.value)">
                             <option value="week">Week</option>

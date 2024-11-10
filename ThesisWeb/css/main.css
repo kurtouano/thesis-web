@@ -4,6 +4,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard syntax */
+  -webkit-tap-highlight-color: transparent; /* Removes the blue tap highlight */
+
 }
 
 :root {
@@ -29,8 +35,13 @@
 }
 
 body {
+  overflow:hidden;
   display: flex;
   flex-direction: row;
+}
+
+img {
+  pointer-events: none;
 }
 
 .sidenav-section,
@@ -44,7 +55,7 @@ body {
   z-index: 1;
   width: 20%;
   min-width: 300px;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   background-color: var(--color-black-1);
@@ -55,6 +66,7 @@ body {
 .sidenav-section.collapsed {
   width: 80px;
   min-width: 20px;
+  height: 100%;
 }
 
 .nav-logo {
@@ -62,6 +74,7 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
   padding: 10px;
 }
 
@@ -161,14 +174,15 @@ body {
 
 .main-section {
   margin-left: 300px;
-  padding: 0 4%;
-  height: 100vh;
-  width: 80%;
+  padding: 0 3.5%;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .main-section.collapsed {
-  margin-left: 70px;
-  padding: 0 5%;
+  margin-left: 80px;
+  padding: 0 3.5%;
   height: 100vh;
   width: 100%;
 }

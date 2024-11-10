@@ -14,6 +14,30 @@ document.querySelector('.burger-sidenav').addEventListener('click', function() {
     burgerSidenav.classList.toggle('collapsed');
     mainSection.classList.toggle('collapsed');
 
+    // Define padding values for different screen sizes
+    let smallScreenPadding = '10px 15px';  
+    let mediumScreenPadding = '12px 20px';     
+    let largeScreenPadding = '12px 20px'; 
+
+    // Define padding values for different screen sizes
+    let smallScreenClosePadding = '10px 23px';  
+    let mediumScreenClosePadding = '12px 30px';     
+    let largeScreenClosePadding = '12px 30px'; 
+
+    // Determine the current padding based on screen width
+    let currentPadding;
+    let closePadding;
+    if (window.innerWidth <= 426) {
+        currentPadding = smallScreenPadding;
+        closePadding = smallScreenClosePadding;
+    } else if (window.innerWidth > 426 && window.innerWidth <= 768) {
+        currentPadding = mediumScreenPadding;
+        closePadding = mediumScreenClosePadding;
+    } else if (window.innerWidth > 768) {
+        currentPadding = largeScreenPadding;
+        closePadding = largeScreenClosePadding;
+    }
+
     // Hide or show text based on the collapsed state
     if (sidenav.classList.contains('collapsed')) {
         navIconsContentText.forEach(content => {
@@ -21,7 +45,7 @@ document.querySelector('.burger-sidenav').addEventListener('click', function() {
         });
 
         navIconsContent.forEach(content => {
-            content.style.padding = '12px 20px';
+            content.style.padding = currentPadding;
         });
     
     } else {
@@ -30,7 +54,7 @@ document.querySelector('.burger-sidenav').addEventListener('click', function() {
         });
 
         navIconsContent.forEach(content => {
-            content.style.padding = '12px 30px';
+            content.style.padding = closePadding;
         });
     }
 });

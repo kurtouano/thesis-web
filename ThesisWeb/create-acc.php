@@ -88,7 +88,7 @@ if (isset($_POST['create-acc-submit'])) {
                             <h4>Account Details:</h4>
                             <p>Email:   " . htmlspecialchars($email) . "</p> 
                             <p>RFID UID: " . htmlspecialchars($rfidTagValid) . "</p> 
-                            <p>Click the link to access your personal dashboard: <a href='http://localhost:3000/ThesisWeb/login.php' style='color: #249339; font-weight: bold; text-decoration: none;'> RevendIt User Dashboard</a></p>
+                            <p>Click the link to access your personal dashboard: <a href='https://www.revendit.site/ThesisWeb/login.php' style='color: #249339; font-weight: bold; text-decoration: none;'> RevendIt User Dashboard</a></p>
                             <hr>
                             <h4>Please Keep These Details in Confidentiality</h4>";
 

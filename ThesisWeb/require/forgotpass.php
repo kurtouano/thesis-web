@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail->isHTML(true);
             $mail->Subject = 'Password Reset Request';
             $mail->Body    = "Click the link below to reset your password:<br>
-                              <a href='http://localhost:3000/ThesisWeb/require/resetpass.php?email={$email}&token={$token}'>Reset Password</a>";
+                              <a href='https://www.revendit.site/ThesisWeb/require/resetpass.php?email={$email}&token={$token}'>Reset Password</a>";
 
             $mail->send();
             echo json_encode(["success" => true, "message" => "Reset password email has been sent."]);

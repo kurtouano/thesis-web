@@ -92,13 +92,15 @@ function updateBarChart() {
             ]
         },
         options: {
+            responsive: true,
+            maintainAspectRatio: false,
             legend: {
                 display: true,
                 position: 'top' // Move the legend to the top
             },
             scales: {
                 x: {
-                    stacked: true
+                    stacked: true,
                 },
                 y: {
                     beginAtZero: true
